@@ -29,7 +29,13 @@ export default function Introduction() {
       <View style={styles.container}>
         <ImageBackground source={Laranja} style={styles.planoFundo}>
           <View>
-            <Text>Olá mundo! Aqui fica uma pequena introdução!</Text>
+            <Text style={styles.title}>Sobre o Scrum Diet</Text>
+            <Text style={styles.description}>
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book.
+            </Text>
           </View>
 
           <View style={styles.buttonSpace}>
@@ -64,8 +70,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  title: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#000',
+    textAlign: 'center',
+  },
+
+  description: {
+    fontSize: 18,
+    color: '#000',
+    textAlign: 'center',
+    height: 400,
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
+
   buttonSpace: {
     flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: 100,
   },
 
   button: {
@@ -75,9 +100,11 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 15,
-    borderColor: '#fd6b22',
+    //borderColor: '#fd6b22',
+    borderColor: '#333',
     //backgroundColor: '#86D3F1',
-    marginTop: 50,
+    paddingHorizontal: 10,
+    marginTop: 10,
   },
 
   buttonText: {

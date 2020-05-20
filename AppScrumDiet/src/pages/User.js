@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,17 +7,47 @@ import {
   ImageBackground,
   TextInput,
   StatusBar,
+  AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
+import api from '../services/api';
+
 import Laranja from '../assets/Laranja.png';
 
-// import api from '../services/api';
+export default function User({navigation}) {
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [id_tipo_cadastro, setId_tipo_cadastro] = useState('');
 
-export default function Page1() {
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
 
-  function navigateToLogin() {
+  useEffect(() => {
+    AsyncStorage.getItem('user').then(user => {
+      if (user) {
+        navigation.navigate('LoginUser');
+      }
+    });
+  }, [navigation]);
+
+  async function navigateToLogin() {
+    const response = await api.post('usuarios', {
+      nome,
+      email,
+      senha,
+      id_tipo_cadastro,
+    });
+
+    console.log(response.data);
+
+    const {usuario} = response.data;
+
+    await AsyncStorage.setItem('user', usuario);
+
+    navigation.navigate('LoginUser');
+  }
+  function navigateToLogin2() {
     navigation.navigate('LoginUser');
   }
 
@@ -36,8 +66,8 @@ export default function Page1() {
               keyboardType="email-address"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={email}
+              onChangeText={setEmail}
             />
           </View>
 
@@ -49,8 +79,8 @@ export default function Page1() {
               placeholderTextColor="#8D8E8E"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={nome}
+              onChangeText={setNome}
             />
           </View>
 
@@ -63,8 +93,8 @@ export default function Page1() {
               secureTextEntry={true}
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={senha}
+              onChangeText={setSenha}
             />
           </View>
 
@@ -78,15 +108,16 @@ export default function Page1() {
               maxLength={1}
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={id_tipo_cadastro}
+              onChangeText={setId_tipo_cadastro}
             />
           </View>
 
-          <TouchableOpacity
-            onPress={() => navigateToLogin()}
-            style={styles.button}>
+          <TouchableOpacity onPress={navigateToLogin} style={styles.button}>
             <Text style={styles.buttonText}>Confirmar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={navigateToLogin2} style={styles.button}>
+            <Text style={styles.buttonText}>Botão Teste</Text>
           </TouchableOpacity>
         </ImageBackground>
       </View>

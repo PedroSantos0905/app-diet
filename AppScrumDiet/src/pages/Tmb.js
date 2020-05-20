@@ -14,7 +14,7 @@ import Azul from '../assets/Azul.png';
 export default function Tmb() {
   const navigation = useNavigation();
 
-  function navigateTo() {
+  function navigateToScrum() {
     navigation.navigate('Scrum');
   }
 
@@ -27,7 +27,9 @@ export default function Tmb() {
             <Text>Olá mundo! Vamos Falar de TMB!</Text>
           </View>
 
-          <TouchableOpacity onPress={() => navigateTo()} style={styles.button}>
+          <TouchableOpacity
+            onPress={() => navigateToScrum()}
+            style={styles.button}>
             <Text style={styles.buttonText}>Navegar para tela SCRUM</Text>
           </TouchableOpacity>
         </ImageBackground>

@@ -9,39 +9,41 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Cinza from '../assets/Cinza.png';
+import Laranja from '../assets/Laranja.png';
 
-export default function Scrum() {
+export default function Introduction() {
   const navigation = useNavigation();
 
-  function navigateToTMB() {
-    navigation.navigate('Tmb');
+  function navigateToScrum() {
+    navigation.navigate('Scrum');
   }
 
-  function navigateToIntroduction() {
-    navigation.navigate('Introduction');
+  // Navega para tela User (colocar nome, e-mail, senha, id_tipo_cadastro)
+  function navigateToCalculo() {
+    navigation.navigate('User');
   }
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#F0F0F0" />
+      <StatusBar barStyle="light-content" backgroundColor="#FFBD87" />
       <View style={styles.container}>
-        <ImageBackground source={Cinza} style={styles.planoFundo}>
+        <ImageBackground source={Laranja} style={styles.planoFundo}>
           <View>
-            <Text>Olá mundo! Vamos Falar de Scrum!</Text>
+            <Text>Olá mundo! Aqui fica uma pequena introdução!</Text>
           </View>
 
           <View style={styles.buttonSpace}>
             <TouchableOpacity
-              onPress={() => navigateToTMB()}
+              onPress={() => navigateToScrum()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Voltar para tela TMB</Text>
+              <Text style={styles.buttonText}>Voltar para tela SCRUM!</Text>
             </TouchableOpacity>
 
+            {/* botão que navega para tela de user */}
             <TouchableOpacity
-              onPress={() => navigateToIntroduction()}
+              onPress={() => navigateToCalculo()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Ir para tela de introdução!</Text>
+              <Text style={styles.buttonText}>Bora calcular sua TMB!</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 15,
-    borderColor: '#333',
+    borderColor: '#fd6b22',
     //backgroundColor: '#86D3F1',
     marginTop: 50,
   },

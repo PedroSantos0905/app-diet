@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,18 +7,34 @@ import {
   ImageBackground,
   TextInput,
   StatusBar,
+  AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Laranja from '../assets/Laranja.png';
 
-// import api from '../services/api';
+import api from '../services/api';
 
-export default function Page1() {
+export default function LoginUser() {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
   const navigation = useNavigation();
 
-  function navigateToCalculoTMB() {
-    navigation.navigate('CalculoTmb');
+  async function navigateToCalculoTMB() {
+    const response = await api.post('/usuarios/login', {
+      senha,
+      email,
+    });
+
+    console.log(response.data);
+
+    const {usuario} = response.data;
+
+    await AsyncStorage.setItem('email', email);
+    await AsyncStorage.setItem('senha', senha);
+
+    navigation.navigate('CalculoTmb', usuario);
   }
 
   return (
@@ -36,8 +52,8 @@ export default function Page1() {
               keyboardType="email-address"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={email}
+              onChangeText={setEmail}
             />
           </View>
 
@@ -50,8 +66,8 @@ export default function Page1() {
               secureTextEntry={true}
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={senha}
+              onChangeText={setSenha}
             />
           </View>
 

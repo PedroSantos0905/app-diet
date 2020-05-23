@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,18 +7,50 @@ import {
   ImageBackground,
   TextInput,
   StatusBar,
+  AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Laranja from '../assets/Laranja.png';
 
-// import api from '../services/api';
+import api from '../services/api';
 
-export default function Page1() {
+export default function CalculoTmb() {
+  const [idade, setIdade] = useState('');
+  const [peso, setPeso] = useState('');
+  const [altura, setAltura] = useState('');
+  const [sexo, setSexo] = useState('');
+
   const navigation = useNavigation();
 
-  function navigateToPerfil() {
-    navigation.navigate('Perfil');
+  // useEffect(() => {
+  //   AsyncStorage.getItem('user').then(user => {
+  //     if (user) {
+  //       navigation.navigate('Perfil');
+  //     }
+  //   });
+  // }, [navigation]);
+
+  async function navigateToPerfil() {
+    const response = await api.put('/usuarios/dadosTmb', {
+      idade,
+      peso,
+      altura,
+      sexo,
+    });
+
+    console.log(response.data);
+
+    const {usuario} = response.data;
+
+    // await AsyncStorage.setItem('idade', idade);
+    // await AsyncStorage.setItem('peso', peso);
+    // await AsyncStorage.setItem('altura', altura);
+    // await AsyncStorage.setItem('sexo', sexo);
+
+    await AsyncStorage.setItem('@AppScrumDiet:token', response.data.token);
+
+    navigation.navigate('Perfil', usuario);
   }
 
   return (
@@ -36,8 +68,8 @@ export default function Page1() {
               keyboardType="numeric"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={idade}
+              onChangeText={setIdade}
             />
           </View>
 
@@ -50,8 +82,8 @@ export default function Page1() {
               keyboardType="numeric"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={peso}
+              onChangeText={setPeso}
             />
           </View>
 
@@ -64,8 +96,8 @@ export default function Page1() {
               keyboardType="numeric"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={altura}
+              onChangeText={setAltura}
             />
           </View>
 
@@ -78,14 +110,15 @@ export default function Page1() {
               keyboardType="numeric"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={name}
-              //onChangeText={setName}
+              value={sexo}
+              onChangeText={setSexo}
             />
           </View>
 
           <TouchableOpacity
             onPress={() => navigateToPerfil()}
-            style={styles.button}>
+            style={styles.button}
+            activeOpacity={0.5}>
             <Text style={styles.buttonText}>Finalizar</Text>
           </TouchableOpacity>
         </ImageBackground>
@@ -140,9 +173,10 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 50,
     borderWidth: 2,
-    borderRadius: 50,
+    borderRadius: 25,
     borderColor: '#fd6b22',
-    //backgroundColor: '#FFBD87',
+    // borderColor: '#ff9000',
+    // backgroundColor: '#ff9000',
     marginTop: 50,
   },
 

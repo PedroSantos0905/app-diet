@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,6 @@ import {
   ImageBackground,
   TextInput,
   StatusBar,
-  AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -15,24 +14,16 @@ import api from '../services/api';
 
 import Laranja from '../assets/Laranja.png';
 
-export default function User({navigation}) {
+export default function User() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [id_tipo_cadastro, setId_tipo_cadastro] = useState('');
+  const [id_tipo_cadastro, setId_tipo_cadastro] = useState(''); // deixar fixo '1'
 
-  //const navigation = useNavigation();
-
-  useEffect(() => {
-    AsyncStorage.getItem('user').then(user => {
-      if (user) {
-        navigation.navigate('LoginUser');
-      }
-    });
-  }, [navigation]);
+  const navigation = useNavigation();
 
   async function navigateToLogin() {
-    const response = await api.post('usuarios', {
+    const response = await api.post('/usuarios', {
       nome,
       email,
       senha,
@@ -40,14 +31,13 @@ export default function User({navigation}) {
     });
 
     console.log(response.data);
-
-    const {usuario} = response.data;
-
-    await AsyncStorage.setItem('user', usuario);
-
-    navigation.navigate('LoginUser');
+    navigation.navigate('LoginUser', {
+      nome: nome,
+      email: email,
+    });
   }
-  function navigateToLogin2() {
+
+  function button() {
     navigation.navigate('LoginUser');
   }
 
@@ -116,8 +106,8 @@ export default function User({navigation}) {
           <TouchableOpacity onPress={navigateToLogin} style={styles.button}>
             <Text style={styles.buttonText}>Confirmar</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={navigateToLogin2} style={styles.button}>
-            <Text style={styles.buttonText}>Botão Teste</Text>
+          <TouchableOpacity onPress={button} style={styles.button}>
+            <Text style={styles.buttonText}>Proxima tela</Text>
           </TouchableOpacity>
         </ImageBackground>
       </View>
@@ -172,7 +162,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 15,
-    borderColor: '#fd6b22',
+    borderColor: '#333',
     //backgroundColor: '#86D3F1',
     marginTop: 50,
   },

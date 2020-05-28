@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 import Laranja from '../assets/Laranja.png';
 
 import api from '../services/api';
+//import auth from '../services/auth';
 
 export default function CalculoTmb() {
   const [idade, setIdade] = useState('');
@@ -24,33 +25,61 @@ export default function CalculoTmb() {
   const navigation = useNavigation();
 
   // useEffect(() => {
-  //   AsyncStorage.getItem('user').then(user => {
-  //     if (user) {
+  //   AsyncStorage.getItem('usuario').then(usuario => {
+  //     if (usuario) {
   //       navigation.navigate('Perfil');
   //     }
   //   });
   // }, [navigation]);
 
+  // async function _retrieveData() {
+  //   try {
+  //     const token = await AsyncStorage.getItem('token');
+  //     if (token !== null) {
+  //       // We have data!!
+  //       console.log(token);
+  //     }
+  //   } catch (error) {
+  //     // Error retrieving data
+  //     console.log(error);
+  //   }
+  // }
+
   async function navigateToPerfil() {
-    const response = await api.put('/usuarios/dadosTmb', {
-      idade,
-      peso,
-      altura,
-      sexo,
-    });
+    const token = await AsyncStorage.getItem('token', token);
+    const response = await api.put(
+      '/usuarios/dadosTmb',
+      {
+        idade,
+        peso,
+        altura,
+        sexo,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          //Authorization: `Bearer ${token}`,
+        },
+      },
+    );
 
     console.log(response.data);
-
     const {usuario} = response.data;
 
-    // await AsyncStorage.setItem('idade', idade);
-    // await AsyncStorage.setItem('peso', peso);
-    // await AsyncStorage.setItem('altura', altura);
-    // await AsyncStorage.setItem('sexo', sexo);
+    // try {
+    //   await AsyncStorage.getItem('token', response.data.token);
+    //   console.log(token);
+    // } catch (error) {
+    //   // Error saving data
+    //   console.log(error);
+    // }
 
-    await AsyncStorage.setItem('@AppScrumDiet:token', response.data.token);
+    //await AsyncStorage.setItem('usuario', token);
+    //await AsyncStorage.getItem('token', response.data.token);
+    console.log(token);
+    //await AsyncStorage.getItem('@AppScrumDiet:usuario', usuario);
 
-    navigation.navigate('Perfil', usuario);
+    navigation.navigate('Perfil', {token, usuario});
   }
 
   return (

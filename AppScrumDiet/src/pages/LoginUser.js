@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -21,6 +21,31 @@ export default function LoginUser() {
 
   const navigation = useNavigation();
 
+  // useEffect(() => {
+  //   AsyncStorage.getItem('usuario').then(usuario => {
+  //     if (usuario) {
+  //       navigation.navigate('Perfil');
+  //     }
+  //   });
+  // }, [navigation]);
+
+  // async function _storeData() {
+
+  // }
+
+  // async function _retrieveData() {
+  //   try {
+  //     const token = await AsyncStorage.getItem('token');
+  //     if (token !== null) {
+  //       // We have data!!
+  //       console.log(token);
+  //     }
+  //   } catch (error) {
+  //     // Error retrieving data
+  //     console.log(error);
+  //   }
+  // }
+
   async function navigateToCalculoTMB() {
     const response = await api.post('/usuarios/login', {
       senha,
@@ -29,12 +54,24 @@ export default function LoginUser() {
 
     console.log(response.data);
 
-    const {usuario} = response.data;
+    const {token, usuario} = response.data;
 
-    await AsyncStorage.setItem('email', email);
-    await AsyncStorage.setItem('senha', senha);
+    try {
+      await AsyncStorage.setItem('token', response.data.token);
+      console.log(token);
+    } catch (error) {
+      // Error saving data
+      console.log(error);
+    }
 
-    navigation.navigate('CalculoTmb', usuario);
+    //await AsyncStorage.setItem('email', email);
+    //await AsyncStorage.setItem('senha', senha);
+    //await AsyncStorage.setItem('@AppScrumDiet:token', token);
+    //await AsyncStorage.setItem('@AppScrumDiet:usuario', usuario);
+
+    console.log(token);
+
+    navigation.navigate('CalculoTmb', {usuario});
   }
 
   return (

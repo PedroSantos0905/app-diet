@@ -19,7 +19,7 @@ export default function Introduction() {
   }
 
   // Navega para tela User (colocar nome, e-mail, senha, id_tipo_cadastro)
-  function navigateToCalculo() {
+  function navigateToUser() {
     navigation.navigate('User');
   }
 
@@ -29,12 +29,13 @@ export default function Introduction() {
       <View style={styles.container}>
         <ImageBackground source={Laranja} style={styles.planoFundo}>
           <View>
-            <Text style={styles.title}>Sobre o Scrum Diet</Text>
+            <Text style={styles.title}>Scrum Diet</Text>
             <Text style={styles.description}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              Scrum Diet propõe emagrecer utilizando-se da{' '}
+              <Text style={styles.bold}>TMB</Text> e a metodologia{' '}
+              <Text style={styles.bold}>SCRUM</Text>, a junção desses dois
+              fatores proporcionará a você uma experiência e motivação com
+              diversas pessoas.
             </Text>
           </View>
 
@@ -42,14 +43,14 @@ export default function Introduction() {
             <TouchableOpacity
               onPress={() => navigateToScrum()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Voltar para tela SCRUM!</Text>
+              <Text style={styles.buttonText}>Anterior</Text>
             </TouchableOpacity>
 
             {/* botão que navega para tela de user */}
             <TouchableOpacity
-              onPress={() => navigateToCalculo()}
+              onPress={() => navigateToUser()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Bora calcular sua TMB!</Text>
+              <Text style={styles.buttonText}>Cadastrar</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -78,31 +79,36 @@ const styles = StyleSheet.create({
   },
 
   description: {
-    fontSize: 18,
-    color: '#000',
+    fontSize: 24,
+    color: '#333',
     textAlign: 'center',
     height: 400,
     paddingHorizontal: 20,
     marginTop: 20,
+    paddingTop: 50,
+  },
+
+  bold: {
+    fontWeight: 'bold',
   },
 
   buttonSpace: {
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
     height: 100,
+    width: '100%',
+    paddingHorizontal: 10,
   },
 
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 360,
+    width: 160,
     height: 50,
     borderWidth: 2,
-    borderRadius: 15,
-    //borderColor: '#fd6b22',
-    borderColor: '#333',
-    //backgroundColor: '#86D3F1',
+    borderRadius: 25,
+    borderColor: '#000',
     paddingHorizontal: 10,
     marginTop: 10,
   },

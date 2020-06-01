@@ -30,10 +30,10 @@ export default function Scrum() {
           <View>
             <Text style={styles.title}>O que é Scrum?</Text>
             <Text style={styles.description}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              O Scrum é uma metodologia que auxilia no planejamento e
+              gerenciamento de projetos de forma ágil. Seu funcionamento inclui
+              um integrante como o "líder" de grupo e outros integrantes como a
+              "equipe".
             </Text>
           </View>
 
@@ -41,13 +41,13 @@ export default function Scrum() {
             <TouchableOpacity
               onPress={() => navigateToTMB()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Voltar para tela TMB</Text>
+              <Text style={styles.buttonText}>Anterior</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => navigateToIntroduction()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Ir para tela de introdução!</Text>
+              <Text style={styles.buttonText}>Próximo</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -76,30 +76,32 @@ const styles = StyleSheet.create({
   },
 
   description: {
-    fontSize: 18,
-    color: '#000',
+    fontSize: 24,
+    color: '#333',
     textAlign: 'center',
     height: 400,
     paddingHorizontal: 20,
     marginTop: 20,
+    paddingTop: 50,
   },
 
   buttonSpace: {
-    flexDirection: 'column',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
     height: 100,
+    width: '100%',
+    paddingHorizontal: 10,
   },
 
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 360,
+    width: 160,
     height: 50,
     borderWidth: 2,
-    borderRadius: 15,
-    borderColor: '#333',
-    //backgroundColor: '#86D3F1',
+    borderRadius: 25,
+    borderColor: '#000',
     paddingHorizontal: 10,
     marginTop: 10,
   },

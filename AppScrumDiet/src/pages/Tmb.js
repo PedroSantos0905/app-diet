@@ -26,10 +26,9 @@ export default function Tmb() {
           <View>
             <Text style={styles.title}>O que é TMB?</Text>
             <Text style={styles.description}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book.
+              Taxa Metabólica basal é uma forma matemática não exata para
+              calcular a quantidade calórica que o corpo humano necessita para
+              se manter o peso.
             </Text>
           </View>
 
@@ -37,7 +36,7 @@ export default function Tmb() {
             <TouchableOpacity
               onPress={() => navigateToScrum()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Navegar para tela SCRUM</Text>
+              <Text style={styles.buttonText}>Próximo</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -66,12 +65,13 @@ const styles = StyleSheet.create({
   },
 
   description: {
-    fontSize: 18,
-    color: '#000',
+    fontSize: 24,
+    color: '#333',
     textAlign: 'center',
     height: 400,
     paddingHorizontal: 20,
     marginTop: 20,
+    paddingTop: 50,
   },
 
   buttonBottom: {
@@ -86,10 +86,9 @@ const styles = StyleSheet.create({
     width: 360,
     height: 50,
     borderWidth: 2,
-    borderRadius: 15,
-    borderColor: '#333',
+    borderRadius: 25,
+    borderColor: '#000',
     paddingHorizontal: 10,
-    //backgroundColor: '#86D3F1',
   },
 
   buttonText: {

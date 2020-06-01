@@ -30,11 +30,9 @@ export default function User() {
       id_tipo_cadastro,
     });
 
-    console.log(response.data);
-    navigation.navigate('LoginUser', {
-      nome: nome,
-      email: email,
-    });
+    const {usuario} = response.data;
+
+    navigation.navigate('LoginUser', {usuario});
   }
 
   function button() {
@@ -103,12 +101,14 @@ export default function User() {
             />
           </View>
 
-          <TouchableOpacity onPress={navigateToLogin} style={styles.button}>
-            <Text style={styles.buttonText}>Confirmar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={button} style={styles.button}>
-            <Text style={styles.buttonText}>Proxima tela</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonView}>
+            <TouchableOpacity onPress={navigateToLogin} style={styles.button}>
+              <Text style={styles.buttonText}>Confirmar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={button} style={styles.login}>
+              <Text style={styles.buttonTextLogin}>Já tenho conta!</Text>
+            </TouchableOpacity>
+          </View>
         </ImageBackground>
       </View>
     </>
@@ -155,20 +155,39 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
 
+  buttonView: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: 100,
+    width: '100%',
+    paddingHorizontal: 10,
+    marginTop: 50,
+  },
+
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '80%',
+    width: 360,
     height: 50,
     borderWidth: 2,
-    borderRadius: 15,
-    borderColor: '#333',
-    //backgroundColor: '#86D3F1',
-    marginTop: 50,
+    borderRadius: 25,
+    borderColor: '#000',
   },
 
   buttonText: {
     fontSize: 24,
     color: '#000',
+  },
+
+  login: {
+    borderBottomWidth: 1,
+    width: 100,
+    borderColor: '#333',
+    paddingTop: 5,
+  },
+
+  buttonTextLogin: {
+    textAlign: 'center',
+    color: '#333',
   },
 });

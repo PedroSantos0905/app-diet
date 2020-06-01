@@ -14,38 +14,16 @@ import {useNavigation} from '@react-navigation/native';
 import Laranja from '../assets/Laranja.png';
 
 import api from '../services/api';
-//import auth from '../services/auth';
 
 export default function CalculoTmb() {
   const [idade, setIdade] = useState('');
   const [peso, setPeso] = useState('');
   const [altura, setAltura] = useState('');
-  const [sexo, setSexo] = useState('');
+  const [sexo, setSexo] = useState(''); // mudar para masculino ou feminino
 
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   AsyncStorage.getItem('usuario').then(usuario => {
-  //     if (usuario) {
-  //       navigation.navigate('Perfil');
-  //     }
-  //   });
-  // }, [navigation]);
-
-  // async function _retrieveData() {
-  //   try {
-  //     const token = await AsyncStorage.getItem('token');
-  //     if (token !== null) {
-  //       // We have data!!
-  //       console.log(token);
-  //     }
-  //   } catch (error) {
-  //     // Error retrieving data
-  //     console.log(error);
-  //   }
-  // }
-
-  async function navigateToPerfil() {
+  async function navigateToHome() {
     const token = await AsyncStorage.getItem('token', token);
     const response = await api.put(
       '/usuarios/dadosTmb',
@@ -58,28 +36,13 @@ export default function CalculoTmb() {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          //Authorization: `Bearer ${token}`,
         },
       },
     );
 
-    console.log(response.data);
     const {usuario} = response.data;
 
-    // try {
-    //   await AsyncStorage.getItem('token', response.data.token);
-    //   console.log(token);
-    // } catch (error) {
-    //   // Error saving data
-    //   console.log(error);
-    // }
-
-    //await AsyncStorage.setItem('usuario', token);
-    //await AsyncStorage.getItem('token', response.data.token);
-    console.log(token);
-    //await AsyncStorage.getItem('@AppScrumDiet:usuario', usuario);
-
-    navigation.navigate('Perfil', {token, usuario});
+    navigation.navigate('Home', {token, usuario});
   }
 
   return (
@@ -145,7 +108,7 @@ export default function CalculoTmb() {
           </View>
 
           <TouchableOpacity
-            onPress={() => navigateToPerfil()}
+            onPress={() => navigateToHome()}
             style={styles.button}
             activeOpacity={0.5}>
             <Text style={styles.buttonText}>Finalizar</Text>
@@ -199,13 +162,11 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '80%',
+    width: 360,
     height: 50,
     borderWidth: 2,
     borderRadius: 25,
-    borderColor: '#fd6b22',
-    // borderColor: '#ff9000',
-    // backgroundColor: '#ff9000',
+    borderColor: '#000',
     marginTop: 50,
   },
 

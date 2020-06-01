@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -21,57 +21,21 @@ export default function LoginUser() {
 
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   AsyncStorage.getItem('usuario').then(usuario => {
-  //     if (usuario) {
-  //       navigation.navigate('Perfil');
-  //     }
-  //   });
-  // }, [navigation]);
-
-  // async function _storeData() {
-
-  // }
-
-  // async function _retrieveData() {
-  //   try {
-  //     const token = await AsyncStorage.getItem('token');
-  //     if (token !== null) {
-  //       // We have data!!
-  //       console.log(token);
-  //     }
-  //   } catch (error) {
-  //     // Error retrieving data
-  //     console.log(error);
-  //   }
-  // }
-
   async function navigateToCalculoTMB() {
     const response = await api.post('/usuarios/login', {
       senha,
       email,
     });
 
-    console.log(response.data);
-
     const {token, usuario} = response.data;
 
-    try {
-      await AsyncStorage.setItem('token', response.data.token);
-      console.log(token);
-    } catch (error) {
-      // Error saving data
-      console.log(error);
-    }
+    await AsyncStorage.setItem('token', response.data.token);
 
-    //await AsyncStorage.setItem('email', email);
-    //await AsyncStorage.setItem('senha', senha);
-    //await AsyncStorage.setItem('@AppScrumDiet:token', token);
-    //await AsyncStorage.setItem('@AppScrumDiet:usuario', usuario);
+    navigation.navigate('CalculoTmb', {token, usuario});
+  }
 
-    console.log(token);
-
-    navigation.navigate('CalculoTmb', {usuario});
+  function button() {
+    navigation.navigate('User');
   }
 
   return (
@@ -107,12 +71,16 @@ export default function LoginUser() {
               onChangeText={setSenha}
             />
           </View>
-
-          <TouchableOpacity
-            onPress={() => navigateToCalculoTMB()}
-            style={styles.button}>
-            <Text style={styles.buttonText}>Confirmar</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonView}>
+            <TouchableOpacity
+              onPress={() => navigateToCalculoTMB()}
+              style={styles.button}>
+              <Text style={styles.buttonText}>Confirmar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={button} style={styles.login}>
+              <Text style={styles.buttonTextLogin}>Criar conta!</Text>
+            </TouchableOpacity>
+          </View>
         </ImageBackground>
       </View>
     </>
@@ -159,20 +127,39 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
 
+  buttonView: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: 100,
+    width: '100%',
+    paddingHorizontal: 10,
+    marginTop: 50,
+  },
+
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '80%',
+    width: 360,
     height: 50,
     borderWidth: 2,
-    borderRadius: 15,
-    borderColor: '#fd6b22',
-    //backgroundColor: '#86D3F1',
-    marginTop: 50,
+    borderRadius: 25,
+    borderColor: '#000',
   },
 
   buttonText: {
     fontSize: 24,
     color: '#000',
+  },
+
+  login: {
+    borderBottomWidth: 1,
+    width: 80,
+    borderColor: '#333',
+    paddingTop: 5,
+  },
+
+  buttonTextLogin: {
+    textAlign: 'center',
+    color: '#333',
   },
 });

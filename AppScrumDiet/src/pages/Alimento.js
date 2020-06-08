@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Azul from '../assets/Azul.png';
+import Amarelo from '../assets/Amarelo.png';
 
 // import api from '../services/api';
 
@@ -24,7 +24,7 @@ export default function Alimento() {
     <>
       <StatusBar barStyle="light-content" backgroundColor="#86D3F1" />
       <View style={styles.container}>
-        <ImageBackground source={Azul} style={styles.planoFundo}>
+        <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <Text style={styles.title}>Tela de alimentos!</Text>
           <TouchableOpacity
             onPress={() => navigateToHome()}

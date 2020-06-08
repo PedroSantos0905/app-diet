@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Laranja from '../assets/Laranja.png';
+import Amarelo from '../assets/Amarelo.png';
 
 export default function Introduction() {
   const navigation = useNavigation();
@@ -25,11 +25,14 @@ export default function Introduction() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#FFBD87" />
+      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
       <View style={styles.container}>
-        <ImageBackground source={Laranja} style={styles.planoFundo}>
-          <View>
+        <ImageBackground source={Amarelo} style={styles.planoFundo}>
+          <View style={styles.viewTitle}>
             <Text style={styles.title}>Scrum Diet</Text>
+          </View>
+          <View style={styles.vazio} />
+          <View style={styles.viewDescription}>
             <Text style={styles.description}>
               Scrum Diet propõe emagrecer utilizando-se da{' '}
               <Text style={styles.bold}>TMB</Text> e a metodologia{' '}
@@ -71,20 +74,48 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  viewTitle: {
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: '#DF72A3',
+    backgroundColor: '#DF72A3',
+    paddingHorizontal: 20,
+    width: '90%',
+  },
+
+  vazio: {
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: '#DF72A3',
+    backgroundColor: '#DF72A3',
+    paddingHorizontal: 20,
+    height: 10,
+    width: '90%',
+    marginTop: 10,
+  },
+
   title: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#FFFFFF',
     textAlign: 'center',
+  },
+
+  viewDescription: {
+    borderWidth: 1,
+    borderRadius: 10,
+    width: '90%',
+    marginTop: 10,
+    borderColor: '#63bacd',
+    backgroundColor: '#63bacd',
   },
 
   description: {
     fontSize: 24,
-    color: '#333',
+    color: '#FFFFFF',
     textAlign: 'center',
     height: 400,
     paddingHorizontal: 20,
-    marginTop: 20,
     paddingTop: 50,
   },
 
@@ -108,13 +139,14 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 25,
-    borderColor: '#000',
+    borderColor: '#DF72A3',
+    backgroundColor: '#DF72A3',
     paddingHorizontal: 10,
     marginTop: 10,
   },
 
   buttonText: {
     fontSize: 22,
-    color: '#000',
+    color: '#FFFFFF',
   },
 });

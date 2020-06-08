@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Laranja from '../assets/Laranja.png';
+import Amarelo from '../assets/Amarelo.png';
 
 import api from '../services/api';
 
@@ -49,7 +49,7 @@ export default function CalculoTmb() {
     <>
       <StatusBar barStyle="light-content" backgroundColor="#FFBD87" />
       <View style={styles.container}>
-        <ImageBackground source={Laranja} style={styles.planoFundo}>
+        <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <Text style={styles.title}>Scrum Diet</Text>
           <View style={styles.viewForm}>
             <Text style={styles.text}>Idade:</Text>

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Azul from '../assets/Azul.png';
+import Amarelo from '../assets/Amarelo.png';
 import Perfil from '../assets/Perfil.png';
 import Plus from '../assets/Plus.png';
 
@@ -31,7 +31,7 @@ export default function Home() {
     <>
       <StatusBar barStyle="light-content" backgroundColor="#86D3F1" />
       <View style={styles.container}>
-        <ImageBackground source={Azul} style={styles.planoFundo}>
+        <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.dataContainer}>
             <Text style={styles.data}>29/05/2020</Text>
           </View>

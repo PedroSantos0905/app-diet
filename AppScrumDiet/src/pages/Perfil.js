@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Laranja from '../assets/Laranja.png';
+import Amarelo from '../assets/Amarelo.png';
 
 // import api from '../services/api';
 
@@ -24,7 +24,7 @@ export default function Perfil() {
     <>
       <StatusBar barStyle="light-content" backgroundColor="#FFBD87" />
       <View style={styles.container}>
-        <ImageBackground source={Laranja} style={styles.planoFundo}>
+        <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.containerForm}>
             <View>
               <Text style={styles.titleNome}>Nome:</Text>

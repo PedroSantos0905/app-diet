@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import Azul from '../assets/Azul.png';
+import Amarelo from '../assets/Amarelo.png';
 
 export default function Tmb() {
   const navigation = useNavigation();
@@ -20,11 +20,14 @@ export default function Tmb() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#86D3F1" />
+      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
       <View style={styles.container}>
-        <ImageBackground source={Azul} style={styles.planoFundo}>
-          <View>
+        <ImageBackground source={Amarelo} style={styles.planoFundo}>
+          <View style={styles.viewTitle}>
             <Text style={styles.title}>O que é TMB?</Text>
+          </View>
+          <View style={styles.vazio} />
+          <View style={styles.viewDescription}>
             <Text style={styles.description}>
               Taxa Metabólica basal é uma forma matemática não exata para
               calcular a quantidade calórica que o corpo humano necessita para
@@ -57,20 +60,50 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  viewTitle: {
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: '#DF72A3',
+    backgroundColor: '#DF72A3',
+    paddingHorizontal: 20,
+    width: '90%',
+    alignItems: 'center',
+  },
+
+  vazio: {
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: '#DF72A3',
+    backgroundColor: '#DF72A3',
+    paddingHorizontal: 20,
+    height: 10,
+    width: '90%',
+    marginTop: 10,
+  },
+
   title: {
     fontSize: 40,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#FFFFFF',
     textAlign: 'center',
+    width: 260,
+  },
+
+  viewDescription: {
+    borderWidth: 1,
+    borderRadius: 10,
+    width: '90%',
+    marginTop: 10,
+    borderColor: '#63bacd',
+    backgroundColor: '#63bacd',
   },
 
   description: {
     fontSize: 24,
-    color: '#333',
+    color: '#FFFFFF',
     textAlign: 'center',
     height: 400,
     paddingHorizontal: 20,
-    marginTop: 20,
     paddingTop: 50,
   },
 
@@ -87,12 +120,13 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 25,
-    borderColor: '#000',
+    borderColor: '#DF72A3',
+    backgroundColor: '#DF72A3',
     paddingHorizontal: 10,
   },
 
   buttonText: {
     fontSize: 22,
-    color: '#000',
+    color: '#FFFFFF',
   },
 });

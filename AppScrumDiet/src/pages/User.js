@@ -7,12 +7,14 @@ import {
   ImageBackground,
   TextInput,
   StatusBar,
+  Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import api from '../services/api';
 
-import Laranja from '../assets/Laranja.png';
+import Amarelo from '../assets/Amarelo.png';
+import Logo from '../assets/Logo.png';
 
 export default function User() {
   const [nome, setNome] = useState('');
@@ -41,9 +43,10 @@ export default function User() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#FFBD87" />
+      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
       <View style={styles.container}>
-        <ImageBackground source={Laranja} style={styles.planoFundo}>
+        <ImageBackground source={Amarelo} style={styles.planoFundo}>
+          <Image source={Logo} style={styles.image} />
           <Text style={styles.title}>Scrum Diet</Text>
           <View style={styles.viewForm}>
             <Text style={styles.text}>E-mail:</Text>
@@ -127,11 +130,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  image: {
+    height: 150,
+    width: 200,
+    resizeMode: 'cover',
+  },
+
   title: {
     fontSize: 48,
     fontWeight: 'bold',
     color: '#FFF',
-    marginBottom: 50,
+    marginBottom: 30,
   },
 
   viewForm: {
@@ -140,7 +149,7 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 18,
-    color: '#000',
+    color: '#5C65CF',
     width: '30%',
     paddingTop: 25,
     paddingLeft: 25,
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
   input: {
     width: '60%',
     borderBottomWidth: 1,
-    borderColor: '#000',
+    borderColor: '#5C65CF',
     marginBottom: 10,
     textAlign: 'center',
     marginRight: 20,
@@ -161,7 +170,7 @@ const styles = StyleSheet.create({
     height: 100,
     width: '100%',
     paddingHorizontal: 10,
-    marginTop: 50,
+    marginTop: 40,
   },
 
   button: {
@@ -171,23 +180,24 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 25,
-    borderColor: '#000',
+    borderColor: '#DF72A3',
+    backgroundColor: '#DF72A3',
   },
 
   buttonText: {
     fontSize: 24,
-    color: '#000',
+    color: '#FFFFFF',
   },
 
   login: {
     borderBottomWidth: 1,
     width: 100,
-    borderColor: '#333',
+    borderColor: '#5C65CF',
     paddingTop: 5,
   },
 
   buttonTextLogin: {
     textAlign: 'center',
-    color: '#333',
+    color: '#5C65CF',
   },
 });

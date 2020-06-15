@@ -22,14 +22,16 @@ export default function Alimento() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#86D3F1" />
+      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
-          <Text style={styles.title}>Tela de alimentos!</Text>
+          <View>
+            <Text style={styles.title}>Tela de alimentos!</Text>
+          </View>
           <TouchableOpacity
             onPress={() => navigateToHome()}
-            style={styles.botao}>
-            <Text>Home</Text>
+            style={styles.button}>
+            <Text style={styles.buttonText}>Home</Text>
           </TouchableOpacity>
         </ImageBackground>
       </View>
@@ -49,15 +51,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  botao: {
+  button: {
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#54c2ea',
-    backgroundColor: '#54c2ea',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     elevation: 5,
     height: 50,
     width: 360,
+  },
+
+  buttonText: {
+    fontSize: 22,
+    color: '#FFFFFF',
   },
 });

@@ -30,7 +30,9 @@ export default function Scrum() {
           <View style={styles.viewTitle}>
             <Text style={styles.title}>O que é Scrum?</Text>
           </View>
+
           <View style={styles.vazio} />
+
           <View style={styles.viewDescription}>
             <Text style={styles.description}>
               O Scrum é uma metodologia que auxilia no planejamento e
@@ -74,28 +76,28 @@ const styles = StyleSheet.create({
   viewTitle: {
     borderWidth: 1,
     borderRadius: 15,
-    borderColor: '#DF72A3',
-    backgroundColor: '#DF72A3',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     paddingHorizontal: 20,
     width: '90%',
+  },
+
+  title: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    textAlign: 'center',
   },
 
   vazio: {
     borderWidth: 1,
     borderRadius: 15,
-    borderColor: '#DF72A3',
-    backgroundColor: '#DF72A3',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     paddingHorizontal: 20,
     height: 10,
     width: '90%',
     marginTop: 10,
-  },
-
-  title: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    textAlign: 'center',
   },
 
   viewDescription: {
@@ -103,12 +105,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '90%',
     marginTop: 10,
-    borderColor: '#63bacd',
-    backgroundColor: '#63bacd',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
   },
 
   description: {
-    fontSize: 24,
+    fontSize: 20,
     color: '#FFFFFF',
     textAlign: 'center',
     height: 400,
@@ -132,8 +134,8 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 25,
-    borderColor: '#DF72A3',
-    backgroundColor: '#DF72A3',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     paddingHorizontal: 10,
     marginTop: 10,
   },

@@ -47,7 +47,9 @@ export default function User() {
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <Image source={Logo} style={styles.image} />
+
           <Text style={styles.title}>Scrum Diet</Text>
+
           <View style={styles.viewForm}>
             <Text style={styles.text}>E-mail:</Text>
             <TextInput
@@ -108,6 +110,7 @@ export default function User() {
             <TouchableOpacity onPress={navigateToLogin} style={styles.button}>
               <Text style={styles.buttonText}>Confirmar</Text>
             </TouchableOpacity>
+
             <TouchableOpacity onPress={button} style={styles.login}>
               <Text style={styles.buttonTextLogin}>Já tenho conta!</Text>
             </TouchableOpacity>
@@ -131,15 +134,15 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    height: 150,
-    width: 200,
+    height: 120,
+    width: 140,
     resizeMode: 'cover',
   },
 
   title: {
-    fontSize: 48,
+    fontSize: 40,
     fontWeight: 'bold',
-    color: '#FFF',
+    color: '#000',
     marginBottom: 30,
   },
 
@@ -180,12 +183,12 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 25,
-    borderColor: '#DF72A3',
-    backgroundColor: '#DF72A3',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
   },
 
   buttonText: {
-    fontSize: 24,
+    fontSize: 22,
     color: '#FFFFFF',
   },
 

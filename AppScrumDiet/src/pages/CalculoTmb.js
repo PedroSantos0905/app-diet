@@ -19,7 +19,7 @@ export default function CalculoTmb() {
   const [idade, setIdade] = useState('');
   const [peso, setPeso] = useState('');
   const [altura, setAltura] = useState('');
-  const [sexo, setSexo] = useState(''); // mudar para masculino ou feminino
+  const [sexo, setSexo] = useState(''); // mudar para checkbox
 
   const navigation = useNavigation();
 
@@ -47,10 +47,9 @@ export default function CalculoTmb() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#FFBD87" />
+      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
-          <Text style={styles.title}>Scrum Diet</Text>
           <View style={styles.viewForm}>
             <Text style={styles.text}>Idade:</Text>
             <TextInput
@@ -131,20 +130,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  title: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#FFF',
-    marginBottom: 50,
-  },
-
   viewForm: {
     flexDirection: 'row',
   },
 
   text: {
     fontSize: 18,
-    color: '#000',
+    color: '#5C65CF',
     width: '30%',
     paddingTop: 25,
     paddingLeft: 25,
@@ -153,7 +145,7 @@ const styles = StyleSheet.create({
   input: {
     width: '60%',
     borderBottomWidth: 1,
-    borderColor: '#000',
+    borderColor: '#5C65CF',
     marginBottom: 10,
     textAlign: 'center',
     marginRight: 20,
@@ -166,12 +158,13 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 25,
-    borderColor: '#000',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     marginTop: 50,
   },
 
   buttonText: {
-    fontSize: 24,
-    color: '#000',
+    fontSize: 22,
+    color: '#FFFFFF',
   },
 });

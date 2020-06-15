@@ -14,12 +14,12 @@ import Amarelo from '../assets/Amarelo.png';
 import Perfil from '../assets/Perfil.png';
 import Plus from '../assets/Plus.png';
 
-// import api from '../services/api';
+//import api from '../services/api';
 
 export default function Home() {
   const navigation = useNavigation();
 
-  function navigateToPerfil() {
+  async function navigateToPerfil() {
     navigation.navigate('Perfil');
   }
 
@@ -27,13 +27,20 @@ export default function Home() {
     navigation.navigate('Alimento');
   }
 
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+
+  today = dd + '/' + mm + '/' + yyyy;
+
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#86D3F1" />
+      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.dataContainer}>
-            <Text style={styles.data}>29/05/2020</Text>
+            <Text style={styles.data}> {today} </Text>
           </View>
 
           <View style={styles.contadorContainer}>
@@ -54,12 +61,12 @@ export default function Home() {
           <View style={styles.containerBottom}>
             <TouchableOpacity style={styles.buttonNavigation}>
               <Image source={Perfil} style={styles.iconImage} />
-              <Text style={styles.textNavigation}>Vazio</Text>
+              <Text style={styles.textNavigation}>Scrum</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.buttonNavigation}>
               <Image source={Perfil} style={styles.iconImage} />
-              <Text style={styles.textNavigation}>Vazio</Text>
+              <Text style={styles.textNavigation}>Alimento</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -90,18 +97,19 @@ const styles = StyleSheet.create({
   dataContainer: {
     justifyContent: 'center',
     width: '100%',
-    height: 80,
+    height: 40,
     paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
   },
 
   data: {
     textAlign: 'center',
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#FFFFFF',
     width: 140,
-    borderBottomWidth: 1,
-    borderColor: '#333',
   },
 
   contadorContainer: {
@@ -110,30 +118,30 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderWidth: 2,
     borderRadius: 50,
-    borderColor: '#54c2ea',
-    backgroundColor: '#54c2ea',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     elevation: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   calorias: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#FFFFFF',
     marginBottom: 10,
   },
 
   valorCalorias: {
     textAlign: 'center',
     textAlignVertical: 'center',
-    fontSize: 40,
-    color: '#333',
+    fontSize: 36,
+    color: '#FFFFFF',
     width: 120,
     height: 120,
     borderWidth: 1,
     borderRadius: 60,
-    borderColor: '#fff',
+    borderColor: '#FFFFFF',
   },
 
   foodContainer: {
@@ -144,39 +152,46 @@ const styles = StyleSheet.create({
     width: 360,
     height: 120,
     marginTop: 40,
+    marginBottom: 40,
     borderWidth: 2,
     borderRadius: 30,
-    borderColor: '#54c2ea',
-    backgroundColor: '#54c2ea',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     elevation: 10,
   },
 
   foodText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#FFFFFF',
     textAlign: 'center',
     textAlignVertical: 'center',
   },
 
+  buttonFood: {
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
+    elevation: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   foodTextButton: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#FFFFFF',
     textAlign: 'center',
     textAlignVertical: 'center',
     width: 80,
     height: 40,
   },
 
-  buttonFood: {
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: '#54c2ea',
-    backgroundColor: '#54c2ea',
-    elevation: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+  iconPlus: {
+    width: 40,
+    height: 40,
+    resizeMode: 'center',
   },
 
   containerBottom: {
@@ -185,8 +200,8 @@ const styles = StyleSheet.create({
     marginTop: 140,
     borderWidth: 2,
     borderRadius: 25,
-    borderColor: '#54c2ea',
-    backgroundColor: '#54c2ea',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     elevation: 10,
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -196,31 +211,26 @@ const styles = StyleSheet.create({
   buttonNavigation: {
     borderWidth: 2,
     borderRadius: 20,
-    borderColor: '#54c2ea',
-    backgroundColor: '#54c2ea',
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
     elevation: 5,
     alignItems: 'center',
-  },
-
-  textNavigation: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    width: 60,
-    height: 30,
-    textAlign: 'center',
-    textAlignVertical: 'center',
   },
 
   iconImage: {
     width: 30,
     height: 30,
     resizeMode: 'contain',
+    marginTop: 5,
   },
 
-  iconPlus: {
-    width: 40,
+  textNavigation: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    width: 80,
     height: 40,
-    resizeMode: 'center',
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
 });

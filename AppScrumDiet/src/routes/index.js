@@ -11,9 +11,6 @@ import Home from '../pages/Home'; // Tela principal do usuário
 import Perfil from '../pages/Perfil'; // Tela de perfil do usuário
 import Alimento from '../pages/Alimento';
 
-import Page1 from '../pages/Page1';
-import Page2 from '../pages/Page2';
-
 const Auth = createStackNavigator();
 
 const AuthRoutes = () => (
@@ -27,9 +24,6 @@ const AuthRoutes = () => (
     <Auth.Screen name="Home" component={Home} />
     <Auth.Screen name="Perfil" component={Perfil} />
     <Auth.Screen name="Alimento" component={Alimento} />
-
-    <Auth.Screen name="Page1" component={Page1} />
-    <Auth.Screen name="Page2" component={Page2} />
   </Auth.Navigator>
 );
 

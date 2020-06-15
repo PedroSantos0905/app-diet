@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   StatusBar,
   TouchableOpacity,
   AsyncStorage,
+  FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -17,44 +18,42 @@ import api from '../services/api';
 export default function Perfil() {
   const navigation = useNavigation();
 
-  //const [perfils, setPerfils] = useState([]);
+  const [perfils, setPerfils] = useState([]);
 
   useEffect(() => {
     async function loadPerfil() {
       const token = await AsyncStorage.getItem('token', token);
-      const response = await api.get(
-        '/perfil',
-        {
-          nome: nome,
-          email: email,
-          idade: idade,
-          peso: peso,
-          altura: altura,
-          sexo: sexo,
-          tipo: tipo,
+      const response = await api.get('/perfil', {
+        params: {},
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      });
 
-      //setPerfils(response.data);
+      setPerfils(response.data);
 
-      const {nome, email, idade, peso, altura, sexo, tipo} = response.data;
-
-      await AsyncStorage.getItem('nome', nome);
-      await AsyncStorage.getItem('email', email);
-      await AsyncStorage.getItem('idade', idade);
-      await AsyncStorage.getItem('peso', peso);
-      await AsyncStorage.getItem('altura', altura);
-      await AsyncStorage.getItem('sexo', sexo);
-      await AsyncStorage.getItem('tipo', tipo);
+      console.log(response.data);
     }
 
     loadPerfil();
   }, []);
+
+  // useEffect(() => {
+  //   async function loadPerfil() {
+  //     const token = await AsyncStorage.getItem('token', token);
+  //     api
+  //       .get('/perfil', {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       })
+  //       .then(response => {
+  //         setPerfils(response.data);
+  //       });
+  //   }
+
+  //   loadPerfil();
+  // }, []);
 
   function navigateToHome() {
     navigation.navigate('Home');
@@ -76,26 +75,24 @@ export default function Perfil() {
               <Text style={styles.title}>Tipo:</Text>
             </View>
 
-            {/* <FlatList
+            <FlatList
               data={perfils}
-              keyExtractor={perfil => perfil._id}
+              keyExtractor={perfil => perfil.id_usuario}
               showsVerticalScrollIndicator={false}
-              renderItem={({item}) => (
+              renderItem={({item: perfil}) => (
                 <View>
-                  <Text style={styles.resultadoNome} key={item}>
-                    {item.nome}
-                  </Text>
-                  <Text style={styles.resultado}>{item.email}</Text>
-                  <Text style={styles.resultado}>{item.idade}</Text>
-                  <Text style={styles.resultado}>{item.peso}</Text>
-                  <Text style={styles.resultado}>{item.altura}</Text>
-                  <Text style={styles.resultado}>{item.sexo}</Text>
-                  <Text style={styles.resultado}>{item.tipo}</Text>
+                  <Text style={styles.resultadoNome}>{perfil.nome}</Text>
+                  <Text style={styles.resultado}>{perfil.email}</Text>
+                  <Text style={styles.resultado}>{perfil.idade}</Text>
+                  <Text style={styles.resultado}>{perfil.peso}</Text>
+                  <Text style={styles.resultado}>{perfil.altura}</Text>
+                  <Text style={styles.resultado}>{perfil.sexo}</Text>
+                  <Text style={styles.resultado}>{perfil.tipo}</Text>
                 </View>
               )}
-            /> */}
+            />
 
-            <View>
+            {/* <View>
               <Text style={styles.resultadoNome}>
                 Willian Takeshi Komada Nobrega Takeshi Komada Nobrega
               </Text>
@@ -105,7 +102,7 @@ export default function Perfil() {
               <Text style={styles.resultado}>183 centímetros</Text>
               <Text style={styles.resultado}>masculino</Text>
               <Text style={styles.resultado}>freemium</Text>
-            </View>
+            </View> */}
           </View>
 
           <TouchableOpacity

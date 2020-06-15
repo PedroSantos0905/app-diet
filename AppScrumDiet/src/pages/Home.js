@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
+  AsyncStorage,
+  FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -14,10 +16,44 @@ import Amarelo from '../assets/Amarelo.png';
 import Perfil from '../assets/Perfil.png';
 import Plus from '../assets/Plus.png';
 
-//import api from '../services/api';
+import api from '../services/api';
 
 export default function Home() {
   const navigation = useNavigation();
+
+  const [tmbs, setTmbs] = useState([]);
+
+  useEffect(() => {
+    async function loadTmb() {
+      const token = await AsyncStorage.getItem('token', token);
+      const response = await api.get('/tmbAtual', {
+        params: {},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setTmbs(response.data);
+
+      console.log(response.data);
+    }
+
+    loadTmb();
+  }, []);
+
+  // useEffect(() => {
+  //   const token = AsyncStorage.getItem('token', token);
+  //   api
+  //     .get('/tmbAtual', {
+  //       params: {},
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then(response => {
+  //       setTmbs(response.data);
+  //     });
+  // }, []);
 
   async function navigateToPerfil() {
     navigation.navigate('Perfil');
@@ -45,7 +81,21 @@ export default function Home() {
 
           <View style={styles.contadorContainer}>
             <Text style={styles.calorias}>Calorias</Text>
-            <Text style={styles.valorCalorias}>2500</Text>
+            {tmbs.map(tmb => (
+              <Text style={styles.valorCalorias} key={tmb.id_usuario}>
+                {tmb.tmb}
+              </Text>
+            ))}
+
+            {/* <FlatList
+              style={styles.list}
+              data={tmbs}
+              keyExtractor={tmb => tmb.id_usuario}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => (
+                <Text style={styles.valorCalorias}>{item.tmb}</Text>
+              )}
+            /> */}
           </View>
 
           <View style={styles.foodContainer}>
@@ -130,6 +180,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 10,
+  },
+
+  list: {
+    height: 100,
+    width: 200,
   },
 
   valorCalorias: {

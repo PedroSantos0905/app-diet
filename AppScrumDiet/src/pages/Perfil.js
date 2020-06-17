@@ -30,30 +30,11 @@ export default function Perfil() {
         },
       });
 
-      setPerfils(response.data);
-
-      console.log(response.data);
+      setPerfils([response.data.perfil]);
     }
 
     loadPerfil();
   }, []);
-
-  // useEffect(() => {
-  //   async function loadPerfil() {
-  //     const token = await AsyncStorage.getItem('token', token);
-  //     api
-  //       .get('/perfil', {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       })
-  //       .then(response => {
-  //         setPerfils(response.data);
-  //       });
-  //   }
-
-  //   loadPerfil();
-  // }, []);
 
   function navigateToHome() {
     navigation.navigate('Home');
@@ -61,7 +42,7 @@ export default function Perfil() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.containerForm}>
@@ -76,6 +57,7 @@ export default function Perfil() {
             </View>
 
             <FlatList
+              style={styles.list}
               data={perfils}
               keyExtractor={perfil => perfil.id_usuario}
               showsVerticalScrollIndicator={false}
@@ -91,18 +73,6 @@ export default function Perfil() {
                 </View>
               )}
             />
-
-            {/* <View>
-              <Text style={styles.resultadoNome}>
-                Willian Takeshi Komada Nobrega Takeshi Komada Nobrega
-              </Text>
-              <Text style={styles.resultado}>willian@gmail.com</Text>
-              <Text style={styles.resultado}>22 anos</Text>
-              <Text style={styles.resultado}>72 quilos</Text>
-              <Text style={styles.resultado}>183 centímetros</Text>
-              <Text style={styles.resultado}>masculino</Text>
-              <Text style={styles.resultado}>freemium</Text>
-            </View> */}
           </View>
 
           <TouchableOpacity
@@ -148,6 +118,7 @@ const styles = StyleSheet.create({
     color: '#F0F0F0',
     height: 40,
     marginBottom: 10,
+    marginLeft: 10,
   },
 
   title: {
@@ -156,6 +127,12 @@ const styles = StyleSheet.create({
     color: '#F0F0F0',
     height: 30,
     marginBottom: 10,
+    marginLeft: 10,
+  },
+
+  list: {
+    marginHorizontal: 10,
+    paddingHorizontal: 10,
   },
 
   resultadoNome: {

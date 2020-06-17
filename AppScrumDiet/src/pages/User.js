@@ -20,7 +20,6 @@ export default function User() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [id_tipo_cadastro, setId_tipo_cadastro] = useState(''); // deixar fixo '1'
 
   const navigation = useNavigation();
 
@@ -29,7 +28,7 @@ export default function User() {
       nome,
       email,
       senha,
-      id_tipo_cadastro,
+      id_tipo_cadastro: 1,
     });
 
     const {usuario} = response.data;
@@ -43,7 +42,7 @@ export default function User() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <Image source={Logo} style={styles.image} />
@@ -91,24 +90,9 @@ export default function User() {
             />
           </View>
 
-          <View style={styles.viewForm}>
-            <Text style={styles.text}>Tipo Cadastro:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Digite 1"
-              placeholderTextColor="#8D8E8E"
-              keyboardType="numeric"
-              maxLength={1}
-              autoCapitalize="words"
-              autoCorrect={false}
-              value={id_tipo_cadastro}
-              onChangeText={setId_tipo_cadastro}
-            />
-          </View>
-
           <View style={styles.buttonView}>
             <TouchableOpacity onPress={navigateToLogin} style={styles.button}>
-              <Text style={styles.buttonText}>Confirmar</Text>
+              <Text style={styles.buttonText}>Criar conta</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={button} style={styles.login}>

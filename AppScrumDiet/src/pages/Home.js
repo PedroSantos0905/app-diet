@@ -33,27 +33,11 @@ export default function Home() {
         },
       });
 
-      setTmbs(response.data);
-
-      console.log(response.data);
+      setTmbs(response.data.tmb);
     }
 
     loadTmb();
   }, []);
-
-  // useEffect(() => {
-  //   const token = AsyncStorage.getItem('token', token);
-  //   api
-  //     .get('/tmbAtual', {
-  //       params: {},
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then(response => {
-  //       setTmbs(response.data);
-  //     });
-  // }, []);
 
   async function navigateToPerfil() {
     navigation.navigate('Perfil');
@@ -72,7 +56,7 @@ export default function Home() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.dataContainer}>
@@ -81,21 +65,15 @@ export default function Home() {
 
           <View style={styles.contadorContainer}>
             <Text style={styles.calorias}>Calorias</Text>
-            {tmbs.map(tmb => (
-              <Text style={styles.valorCalorias} key={tmb.id_usuario}>
-                {tmb.tmb}
-              </Text>
-            ))}
 
-            {/* <FlatList
-              style={styles.list}
+            <FlatList
               data={tmbs}
               keyExtractor={tmb => tmb.id_usuario}
               showsVerticalScrollIndicator={false}
-              renderItem={({item}) => (
-                <Text style={styles.valorCalorias}>{item.tmb}</Text>
+              renderItem={({item: tmb}) => (
+                <Text style={styles.valorCalorias}>{tmb.tmb}</Text>
               )}
-            /> */}
+            />
           </View>
 
           <View style={styles.foodContainer}>
@@ -180,11 +158,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 10,
-  },
-
-  list: {
-    height: 100,
-    width: 200,
   },
 
   valorCalorias: {

@@ -8,12 +8,14 @@ import {
   TextInput,
   StatusBar,
   AsyncStorage,
+  Image,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Amarelo from '../assets/Amarelo.png';
 
 import api from '../services/api';
+import Logo from '../assets/Logo.png';
 
 export default function CalculoTmb() {
   const [idade, setIdade] = useState('');
@@ -47,9 +49,13 @@ export default function CalculoTmb() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
+          <Image source={Logo} style={styles.image} />
+
+          <Text style={styles.title}>Scrum Diet</Text>
+
           <View style={styles.viewForm}>
             <Text style={styles.text}>Idade:</Text>
             <TextInput
@@ -128,6 +134,19 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  image: {
+    height: 120,
+    width: 140,
+    resizeMode: 'cover',
+  },
+
+  title: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: '#000',
+    marginBottom: 30,
   },
 
   viewForm: {

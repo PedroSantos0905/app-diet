@@ -20,7 +20,7 @@ export default function Tmb() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.viewTitle}>

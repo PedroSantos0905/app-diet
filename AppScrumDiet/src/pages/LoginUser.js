@@ -42,7 +42,7 @@ export default function LoginUser() {
 
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#F4DC6E" />
+      <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <Image source={Logo} style={styles.image} />
@@ -81,7 +81,7 @@ export default function LoginUser() {
             <TouchableOpacity
               onPress={() => navigateToCalculoTMB()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Confirmar</Text>
+              <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={button} style={styles.login}>

@@ -34,6 +34,8 @@ export default function Home() {
       });
 
       setTmbs(response.data.tmb);
+
+      console.log(response.data.tmb);
     }
 
     loadTmb();

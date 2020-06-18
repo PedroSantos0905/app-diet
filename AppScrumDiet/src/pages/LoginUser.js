@@ -81,7 +81,7 @@ export default function LoginUser() {
             <TouchableOpacity
               onPress={() => navigateToCalculoTMB()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Login</Text>
+              <Text style={styles.buttonText}>Logar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={button} style={styles.login}>

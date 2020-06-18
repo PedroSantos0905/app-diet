@@ -9,6 +9,7 @@ import {
   StatusBar,
   AsyncStorage,
   Image,
+  Picker,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -21,7 +22,7 @@ export default function CalculoTmb() {
   const [idade, setIdade] = useState('');
   const [peso, setPeso] = useState('');
   const [altura, setAltura] = useState('');
-  const [sexo, setSexo] = useState(''); // mudar para checkbox
+  const [sexo, setSexo] = useState('');
 
   const navigation = useNavigation();
 
@@ -88,7 +89,7 @@ export default function CalculoTmb() {
             <Text style={styles.text}>Altura:</Text>
             <TextInput
               style={styles.input}
-              placeholder="Digite sua altura"
+              placeholder="Digite sua altura em centímetros"
               placeholderTextColor="#8D8E8E"
               keyboardType="numeric"
               autoCapitalize="words"
@@ -100,16 +101,16 @@ export default function CalculoTmb() {
 
           <View style={styles.viewForm}>
             <Text style={styles.text}>Sexo:</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Qual é o seu sexo?"
-              placeholderTextColor="#8D8E8E"
-              keyboardType="numeric"
-              autoCapitalize="words"
-              autoCorrect={false}
-              value={sexo}
-              onChangeText={setSexo}
-            />
+            <View style={styles.picker}>
+              <Picker
+                selectedValue={sexo}
+                onValueChange={setSexo}
+                style={styles.sexoText}>
+                <Picker.Item label="" value="" />
+                <Picker.Item label="Masculino" value="1" />
+                <Picker.Item label="Feminino" value="2" />
+              </Picker>
+            </View>
           </View>
 
           <TouchableOpacity
@@ -168,6 +169,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center',
     marginRight: 20,
+  },
+
+  picker: {
+    width: '60%',
+    borderBottomWidth: 1,
+    borderColor: '#5C65CF',
+    color: '#5C65CF',
+    marginBottom: 10,
+    textAlign: 'center',
+    marginRight: 20,
+  },
+
+  sexoText: {
+    fontSize: 18,
+    color: '#5C65CF',
   },
 
   button: {

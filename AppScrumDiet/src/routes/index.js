@@ -10,6 +10,7 @@ import CalculoTmb from '../pages/CalculoTmb'; // Informações de Idade, Peso, A
 import Home from '../pages/Home'; // Tela principal do usuário
 import Perfil from '../pages/Perfil'; // Tela de perfil do usuário
 import Alimento from '../pages/Alimento';
+import Refeicao from '../pages/Refeicao';
 
 const Auth = createStackNavigator();
 
@@ -18,12 +19,13 @@ const AuthRoutes = () => (
     <Auth.Screen name="Tmb" component={Tmb} />
     <Auth.Screen name="Scrum" component={Scrum} />
     <Auth.Screen name="Introduction" component={Introduction} />
-    <Auth.Screen name="User" component={User} />
     <Auth.Screen name="LoginUser" component={LoginUser} />
+    <Auth.Screen name="User" component={User} />
     <Auth.Screen name="CalculoTmb" component={CalculoTmb} />
     <Auth.Screen name="Home" component={Home} />
     <Auth.Screen name="Perfil" component={Perfil} />
     <Auth.Screen name="Alimento" component={Alimento} />
+    <Auth.Screen name="Refeicao" component={Refeicao} />
   </Auth.Navigator>
 );
 

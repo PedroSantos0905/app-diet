@@ -15,6 +15,8 @@ import {useNavigation} from '@react-navigation/native';
 import Amarelo from '../assets/Amarelo.png';
 import Perfil from '../assets/Perfil.png';
 import Plus from '../assets/Plus.png';
+import Group from '../assets/Group.png';
+import Food from '../assets/Food.png';
 
 import api from '../services/api';
 
@@ -22,6 +24,7 @@ export default function Home() {
   const navigation = useNavigation();
 
   const [tmbs, setTmbs] = useState([]);
+  const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     async function loadTmb() {
@@ -34,11 +37,25 @@ export default function Home() {
       });
 
       setTmbs(response.data.tmb);
-
-      console.log(response.data.tmb);
     }
 
     loadTmb();
+  }, []);
+
+  useEffect(() => {
+    async function loadData() {
+      const token = await AsyncStorage.getItem('token', token);
+      const response = await api.get('/dataAtual', {
+        params: {},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setDatas([response.data.data]);
+    }
+
+    loadData();
   }, []);
 
   async function navigateToPerfil() {
@@ -49,12 +66,9 @@ export default function Home() {
     navigation.navigate('Alimento');
   }
 
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0');
-  var yyyy = today.getFullYear();
-
-  today = dd + '/' + mm + '/' + yyyy;
+  function navigateToRefeicao() {
+    navigation.navigate('Refeicao');
+  }
 
   return (
     <>
@@ -62,7 +76,14 @@ export default function Home() {
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.dataContainer}>
-            <Text style={styles.data}> {today} </Text>
+            <FlatList
+              data={datas}
+              keyExtractor={data => data.id_usuario}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item: data}) => (
+                <Text style={styles.data}>{data.dataAtual}</Text>
+              )}
+            />
           </View>
 
           <View style={styles.contadorContainer}>
@@ -90,13 +111,15 @@ export default function Home() {
 
           <View style={styles.containerBottom}>
             <TouchableOpacity style={styles.buttonNavigation}>
-              <Image source={Perfil} style={styles.iconImage} />
+              <Image source={Group} style={styles.iconImage} />
               <Text style={styles.textNavigation}>Scrum</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonNavigation}>
-              <Image source={Perfil} style={styles.iconImage} />
-              <Text style={styles.textNavigation}>Alimento</Text>
+            <TouchableOpacity
+              onPress={() => navigateToRefeicao()}
+              style={styles.buttonNavigation}>
+              <Image source={Food} style={styles.iconImage} />
+              <Text style={styles.textNavigation}>Refeições</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -140,6 +163,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFFFFF',
     width: 140,
+    marginTop: 5,
   },
 
   contadorContainer: {
@@ -159,7 +183,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop: 10,
   },
 
   valorCalorias: {

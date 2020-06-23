@@ -18,8 +18,8 @@ export default function Introduction() {
     navigation.navigate('Scrum');
   }
 
-  function navigateToUser() {
-    navigation.navigate('User');
+  function navigateToLoginUser() {
+    navigation.navigate('LoginUser');
   }
 
   return (
@@ -49,7 +49,7 @@ export default function Introduction() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => navigateToUser()}
+              onPress={() => navigateToLoginUser()}
               style={styles.button}>
               <Text style={styles.buttonText}>Cadastrar</Text>
             </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,12 +11,13 @@ import {
   ScrollView,
   AsyncStorage,
   TextInput,
+  FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Amarelo from '../assets/Amarelo.png';
 import Search from '../assets/Search.png';
-import Plus from '../assets/Plus.png';
+//import Plus from '../assets/Plus.png';
 
 import api from '../services/api';
 
@@ -27,6 +28,24 @@ export default function Alimento() {
   const [id_alimentos, setId_alimentos] = useState('');
   const [dt_refeicao, setDt_refeicao] = useState('');
   const [hr_refeicao, setHr_refeicao] = useState('');
+
+  const [alimentos, setAlimentos] = useState([]);
+
+  useEffect(() => {
+    async function loadAlimento() {
+      const token = await AsyncStorage.getItem('token', token);
+      const response = await api.get('/alimento/listarAlimento', {
+        params: {},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setAlimentos(response.data.alimento);
+    }
+
+    loadAlimento();
+  }, []);
 
   async function createRefeicao() {
     const token = await AsyncStorage.getItem('token', token);
@@ -79,55 +98,28 @@ export default function Alimento() {
 
           <SafeAreaView style={styles.alimentoContainerText}>
             <ScrollView style={styles.scrollContainer}>
-              <View style={styles.viewTest}>
-                <Text style={styles.alimentoText}>28</Text>
-                <Text style={styles.alimentoText}>Água de coco verde</Text>
-                <Text style={styles.alimentoText}>1 copo de 240 ml</Text>
-                <Text style={styles.alimentoTextCaloria}>62</Text>
-                <TouchableOpacity style={styles.buttonIcon}>
-                  <Image source={Plus} style={styles.iconPlus} />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.viewTest}>
-                <Text style={styles.alimentoText}>35</Text>
-                <Text style={styles.alimentoText}>Água de coco verde</Text>
-                <Text style={styles.alimentoText}>1 copo de 240 ml</Text>
-                <Text style={styles.alimentoTextCaloria}>62</Text>
-                <TouchableOpacity style={styles.buttonIcon}>
-                  <Image source={Plus} style={styles.iconPlus} />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.viewTest}>
-                <Text style={styles.alimentoText}>42</Text>
-                <Text style={styles.alimentoText}>Água de coco verde</Text>
-                <Text style={styles.alimentoText}>1 copo de 240 ml</Text>
-                <Text style={styles.alimentoTextCaloria}>62</Text>
-                <TouchableOpacity style={styles.buttonIcon}>
-                  <Image source={Plus} style={styles.iconPlus} />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.viewTest}>
-                <Text style={styles.alimentoText}>7</Text>
-                <Text style={styles.alimentoText}>Água de coco verde</Text>
-                <Text style={styles.alimentoText}>1 copo de 240 ml</Text>
-                <Text style={styles.alimentoTextCaloria}>62</Text>
-                <TouchableOpacity style={styles.buttonIcon}>
-                  <Image source={Plus} style={styles.iconPlus} />
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.viewTest}>
-                <Text style={styles.alimentoText}>109</Text>
-                <Text style={styles.alimentoText}>Água de coco verde</Text>
-                <Text style={styles.alimentoText}>1 copo de 240 ml</Text>
-                <Text style={styles.alimentoTextCaloria}>62</Text>
-                <TouchableOpacity style={styles.buttonIcon}>
-                  <Image source={Plus} style={styles.iconPlus} />
-                </TouchableOpacity>
-              </View>
+              <FlatList
+                data={alimentos}
+                keyExtractor={alimento => alimento.id_alimento}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item: alimento}) => (
+                  <View style={styles.viewTest}>
+                    <Text style={styles.alimentoTextId}>
+                      {alimento.id_alimento}
+                    </Text>
+                    <Text style={styles.alimentoTextNome}>{alimento.nome}</Text>
+                    <Text style={styles.alimentoTextQuantidade}>
+                      {alimento.quantidade}
+                    </Text>
+                    <Text style={styles.alimentoTextCaloria}>
+                      {alimento.caloria}
+                    </Text>
+                    {/* <TouchableOpacity style={styles.buttonIcon}>
+                      <Image source={Plus} style={styles.iconPlus} />
+                    </TouchableOpacity> */}
+                  </View>
+                )}
+              />
             </ScrollView>
           </SafeAreaView>
 
@@ -136,7 +128,7 @@ export default function Alimento() {
               <Text style={styles.title}>Título:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Pesquise os alimentos aqui!"
+                placeholder="Dê um nome para sua refeição"
                 placeholderTextColor="#8D8E8E"
                 autoCapitalize="words"
                 autoCorrect={false}
@@ -149,7 +141,7 @@ export default function Alimento() {
               <Text style={styles.title}>Alimentos:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Pesquise os alimentos aqui!"
+                placeholder="Coloque o ID dos alimentos"
                 placeholderTextColor="#8D8E8E"
                 autoCapitalize="words"
                 autoCorrect={false}
@@ -162,7 +154,7 @@ export default function Alimento() {
               <Text style={styles.title}>Data:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Pesquise os alimentos aqui!"
+                placeholder="Exemplo: aaaa-mm-dd"
                 placeholderTextColor="#8D8E8E"
                 autoCapitalize="words"
                 autoCorrect={false}
@@ -175,7 +167,7 @@ export default function Alimento() {
               <Text style={styles.title}>Hora:</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Pesquise os alimentos aqui!"
+                placeholder="Exemplo: hh:mm:ss"
                 placeholderTextColor="#8D8E8E"
                 autoCapitalize="words"
                 autoCorrect={false}
@@ -276,22 +268,39 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  alimentoText: {
+  alimentoTextId: {
+    fontSize: 16,
+    width: 40,
+    height: 60,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: '#FFFFFF',
+  },
+
+  alimentoTextNome: {
+    fontSize: 16,
+    width: 120,
+    height: 60,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: '#FFFFFF',
+  },
+
+  alimentoTextQuantidade: {
     fontSize: 16,
     width: 100,
     height: 60,
     textAlign: 'center',
-    //marginLeft: 25,
-    paddingRight: 20,
+    textAlignVertical: 'center',
     color: '#FFFFFF',
   },
 
   alimentoTextCaloria: {
     fontSize: 16,
-    width: 100,
+    width: 80,
     height: 60,
     textAlign: 'center',
-    paddingLeft: 20,
+    textAlignVertical: 'center',
     color: '#FFFFFF',
   },
 

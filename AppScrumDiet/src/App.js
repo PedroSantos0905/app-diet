@@ -6,7 +6,13 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import Routes from './routes';
 
-YellowBox.ignoreWarnings(['AsyncStorage', 'key', 'Picker']);
+YellowBox.ignoreWarnings([
+  'AsyncStorage',
+  'key',
+  'Picker',
+  'virtualizedCell',
+  'VirtualizedLists',
+]);
 
 const App = () => (
   <NavigationContainer>

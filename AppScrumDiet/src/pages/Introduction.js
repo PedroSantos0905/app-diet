@@ -18,8 +18,8 @@ export default function Introduction() {
     navigation.navigate('Scrum');
   }
 
-  function navigateToLoginUser() {
-    navigation.navigate('LoginUser');
+  function navigateToHome() {
+    navigation.navigate('Home');
   }
 
   return (
@@ -49,9 +49,9 @@ export default function Introduction() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => navigateToLoginUser()}
+              onPress={() => navigateToHome()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Cadastrar</Text>
+              <Text style={styles.buttonText}>Pronto</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>

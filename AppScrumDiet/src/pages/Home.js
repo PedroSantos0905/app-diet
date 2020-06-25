@@ -13,6 +13,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 
 import Amarelo from '../assets/Amarelo.png';
+import Info from '../assets/Info.png';
 import Perfil from '../assets/Perfil.png';
 import Plus from '../assets/Plus.png';
 import Group from '../assets/Group.png';
@@ -70,6 +71,10 @@ export default function Home() {
     navigation.navigate('Refeicao');
   }
 
+  function navigateToTmb() {
+    navigation.navigate('Tmb');
+  }
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
@@ -81,7 +86,12 @@ export default function Home() {
               keyExtractor={data => data.id_usuario}
               showsVerticalScrollIndicator={false}
               renderItem={({item: data}) => (
-                <Text style={styles.data}>{data.dataAtual}</Text>
+                <View style={styles.containerImageData}>
+                  <Text style={styles.data}>{data.dataAtual}</Text>
+                  <TouchableOpacity onPress={() => navigateToTmb()}>
+                    <Image source={Info} style={styles.iconInfo} />
+                  </TouchableOpacity>
+                </View>
               )}
             />
           </View>
@@ -157,12 +167,24 @@ const styles = StyleSheet.create({
     backgroundColor: '#5C65CF',
   },
 
+  containerImageData: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
   data: {
     textAlign: 'center',
     fontSize: 20,
     fontWeight: 'bold',
     color: '#FFFFFF',
     width: 140,
+    marginTop: 5,
+  },
+
+  iconInfo: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
     marginTop: 5,
   },
 

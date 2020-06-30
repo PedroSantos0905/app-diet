@@ -75,6 +75,10 @@ export default function Home() {
     navigation.navigate('Tmb');
   }
 
+  function navigateToScrumList() {
+    navigation.navigate('ScrumList');
+  }
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
@@ -120,7 +124,9 @@ export default function Home() {
           </View>
 
           <View style={styles.containerBottom}>
-            <TouchableOpacity style={styles.buttonNavigation}>
+            <TouchableOpacity
+              onPress={() => navigateToScrumList()}
+              style={styles.buttonNavigation}>
               <Image source={Group} style={styles.iconImage} />
               <Text style={styles.textNavigation}>Scrum</Text>
             </TouchableOpacity>

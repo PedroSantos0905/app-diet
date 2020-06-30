@@ -18,7 +18,7 @@ import Eye from '../assets/Eye.png';
 
 import api from '../services/api';
 
-export default function Alimento() {
+export default function Refeicao() {
   const navigation = useNavigation();
 
   const [refeicoes, setRefeicoes] = useState([]);

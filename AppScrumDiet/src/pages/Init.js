@@ -14,16 +14,16 @@ import {useNavigation} from '@react-navigation/native';
 import Amarelo from '../assets/Amarelo.png';
 import Logo from '../assets/Logo.png';
 
-export default function Home() {
+export default function Init() {
   const navigation = useNavigation();
 
-  useEffect(() => {
-    AsyncStorage.getItem('token').then(user => {
-      if (user) {
-        navigation.navigate('Home');
-      }
-    });
-  }, [navigation]);
+  // useEffect(() => {
+  //   AsyncStorage.getItem('token').then(user => {
+  //     if (user) {
+  //       navigation.navigate('Home');
+  //     }
+  //   });
+  // }, [navigation]);
 
   function navigateToCadastrar() {
     navigation.navigate('User');

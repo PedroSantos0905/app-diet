@@ -69,6 +69,10 @@ export default function Alimento() {
     navigation.navigate('Home', {usuario});
   }
 
+  function navigateToHome() {
+    navigation.navigate('Home');
+  }
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
@@ -177,11 +181,19 @@ export default function Alimento() {
             </View>
           </View>
 
-          <TouchableOpacity
-            onPress={() => createRefeicao()}
-            style={styles.button}>
-            <Text style={styles.buttonText}>Salvar</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonSpace}>
+            <TouchableOpacity
+              onPress={() => navigateToHome()}
+              style={styles.buttonNavigation}>
+              <Text style={styles.textNavigation}>Home</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => createRefeicao()}
+              style={styles.buttonNavigation}>
+              <Text style={styles.textNavigation}>Salvar</Text>
+            </TouchableOpacity>
+          </View>
         </ImageBackground>
       </View>
     </>
@@ -200,22 +212,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  button: {
+  buttonSpace: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    height: 100,
+    width: '100%',
+    paddingHorizontal: 10,
+    paddingBottom: 20,
+  },
+
+  buttonNavigation: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 10,
+    width: 180,
+    height: 50,
+    borderWidth: 2,
+    borderRadius: 25,
     borderColor: '#41aac6',
     backgroundColor: '#5C65CF',
-    elevation: 5,
-    height: 50,
-    width: 360,
+    paddingHorizontal: 10,
     marginTop: 10,
   },
 
-  buttonText: {
+  textNavigation: {
     fontSize: 22,
+    fontWeight: 'bold',
     color: '#FFFFFF',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 360,
+    height: 40,
   },
 
   pesquisaContainer: {

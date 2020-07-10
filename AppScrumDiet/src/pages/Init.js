@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react'; //, {useEffect}
 import {
   View,
   Text,
@@ -7,7 +7,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
-  AsyncStorage,
+  //AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 

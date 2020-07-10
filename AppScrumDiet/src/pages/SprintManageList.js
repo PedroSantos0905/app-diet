@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,14 +6,18 @@ import {
   StatusBar,
   ImageBackground,
   TouchableOpacity,
+  AsyncStorage,
+  FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Amarelo from '../assets/Amarelo.png';
 
-// import api from '../services/api';
+import api from '../services/api';
 
 export default function SprintManageList() {
+  const [refeicoes, setRefeicoes] = useState([]);
+
   const navigation = useNavigation();
 
   function navigateToGroupScrum() {
@@ -24,6 +28,22 @@ export default function SprintManageList() {
     navigation.navigate('SprintManage');
   }
 
+  useEffect(() => {
+    async function loadAlimento() {
+      const token = await AsyncStorage.getItem('token', token);
+      const response = await api.get('/sprint/listarRefeicaoSprint', {
+        params: {},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setRefeicoes(response.data.refeicoes);
+    }
+
+    loadAlimento();
+  }, []);
+
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
@@ -32,68 +52,43 @@ export default function SprintManageList() {
           <View style={styles.containerMaster}>
             <View style={styles.listContainer}>
               <View>
-                <Text style={styles.title}>Dia da semana*</Text>
+                <Text style={styles.title}>Cadastrar nova Refeição</Text>
               </View>
               <View style={styles.containerManage}>
                 <TouchableOpacity
                   onPress={() => navigateToSprintManage()}
                   style={styles.buttonManage}>
-                  <Text style={styles.textButtonManage}>Editar</Text>
+                  <Text style={styles.textButtonManage}>Nova</Text>
                 </TouchableOpacity>
               </View>
             </View>
 
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Dia da semana*</Text>
-              </View>
-              <View style={styles.containerManage}>
-                <TouchableOpacity
-                  onPress={() => navigateToSprintManage()}
-                  style={styles.buttonManage}>
-                  <Text style={styles.textButtonManage}>Editar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Dia da semana*</Text>
-              </View>
-              <View style={styles.containerManage}>
-                <TouchableOpacity
-                  onPress={() => navigateToSprintManage()}
-                  style={styles.buttonManage}>
-                  <Text style={styles.textButtonManage}>Editar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Dia da semana*</Text>
-              </View>
-              <View style={styles.containerManage}>
-                <TouchableOpacity
-                  onPress={() => navigateToSprintManage()}
-                  style={styles.buttonManage}>
-                  <Text style={styles.textButtonManage}>Editar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Dia da semana*</Text>
-              </View>
-              <View style={styles.containerManage}>
-                <TouchableOpacity
-                  onPress={() => navigateToSprintManage()}
-                  style={styles.buttonManage}>
-                  <Text style={styles.textButtonManage}>Editar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <FlatList
+              data={refeicoes}
+              keyExtractor={refeicao => refeicao.id_refeicao}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item: refeicao}) => (
+                <View style={styles.viewContainerRefeicao}>
+                  <View style={styles.rowContainer}>
+                    <Text style={styles.semana}>{refeicao.ds_dia_semana}</Text>
+                    <Text style={styles.sprintId}>{refeicao.id_sprint}</Text>
+                  </View>
+                  <Text style={styles.titleRefeicao}>
+                    {refeicao.nm_refeicao}
+                  </Text>
+                  <Text style={styles.titleRefeicao}>
+                    {refeicao.id_alimentos}
+                  </Text>
+                  <View style={styles.rowContainer}>
+                    <Text style={styles.data}>{refeicao.dt_refeicao}</Text>
+                    <Text style={styles.hora}>{refeicao.hr_refeicao}</Text>
+                  </View>
+                  <Text style={styles.calorias}>
+                    Calorias: {refeicao.calorias_refeicao}
+                  </Text>
+                </View>
+              )}
+            />
           </View>
 
           <View style={styles.buttonSpace}>
@@ -173,14 +168,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlignVertical: 'center',
     textAlign: 'center',
-    width: 240,
+    width: 280,
     height: 80,
   },
 
   containerManage: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 120,
+    width: 80,
     height: 80,
   },
 
@@ -198,5 +193,91 @@ const styles = StyleSheet.create({
   textButtonManage: {
     fontSize: 14,
     color: '#fff',
+  },
+
+  viewContainerRefeicao: {
+    width: 360,
+    height: 200,
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
+    marginBottom: 10,
+  },
+
+  rowContainer: {
+    flexDirection: 'row',
+  },
+
+  semana: {
+    fontSize: 18,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 240,
+    height: 40,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
+    borderColor: '#41aac6',
+  },
+
+  sprintId: {
+    fontSize: 24,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 120,
+    height: 40,
+    borderBottomWidth: 1,
+    borderColor: '#41aac6',
+  },
+
+  titleRefeicao: {
+    fontSize: 22,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 360,
+    height: 40,
+    borderBottomWidth: 1,
+    borderColor: '#41aac6',
+  },
+
+  data: {
+    fontSize: 16,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 240,
+    height: 40,
+    borderBottomWidth: 1,
+    borderRightWidth: 1,
+    borderColor: '#41aac6',
+  },
+
+  hora: {
+    fontSize: 18,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    width: 120,
+    height: 40,
+    borderBottomWidth: 1,
+    borderColor: '#41aac6',
+  },
+
+  calorias: {
+    fontSize: 16,
+    color: '#FFF',
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
+    width: 360,
+    height: 40,
+    paddingLeft: 10,
   },
 });

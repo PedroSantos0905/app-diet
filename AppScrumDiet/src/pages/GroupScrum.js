@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,15 +6,22 @@ import {
   StatusBar,
   ImageBackground,
   TouchableOpacity,
+  FlatList,
+  AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Amarelo from '../assets/Amarelo.png';
 
-// import api from '../services/api';
+import api from '../services/api';
 
 export default function GroupScrum() {
   const navigation = useNavigation();
+
+  const [listParticipantes, setListParticipantes] = useState([]);
+  const [id_sprint, setId_sprint] = useState('');
+  //const [id_usuario, setId_usuario] = useState('');
+  const [id_usuarioParticipante, setId_usuarioParticipante] = useState('');
 
   function navigateToScrumList() {
     navigation.navigate('ScrumList');
@@ -24,9 +31,60 @@ export default function GroupScrum() {
     navigation.navigate('SprintManageList');
   }
 
-  function NavigateToSprintList() {
-    navigation.navigate('SprintList');
+  async function NavigateToSprintList(participante) {
+    const id = await AsyncStorage.getItem('id_sprint', id);
+    setId_sprint(id);
+    setId_usuarioParticipante(participante);
+    console.log(participante);
+    const token = await AsyncStorage.getItem('token', token);
+    const response = await api.post(
+      '/sprint/listarRefeicaoParticipanteSprint',
+      {
+        id_sprint: id,
+        id_usuarioParticipante: participante,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    console.log(participante);
+    await AsyncStorage.setItem(
+      'id_usuarioParticipante',
+      participante.toString(),
+    );
+
+    console.log(participante);
+
+    navigation.navigate('SprintList', {participante});
   }
+
+  useEffect(() => {
+    async function loadSprint() {
+      const id = await AsyncStorage.getItem('id_sprint', id);
+      setId_sprint(id);
+      const token = await AsyncStorage.getItem('token', token);
+      const response = await api.post(
+        '/sprint/listarParticipantes',
+        {
+          id_sprint: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setListParticipantes(response.data.sprint);
+
+      //console.log(response.data);
+    }
+
+    loadSprint();
+  }, [id_sprint]);
 
   return (
     <>
@@ -34,70 +92,32 @@ export default function GroupScrum() {
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.containerMaster}>
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Nome do integrante*</Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToSprintList()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Ver</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <FlatList
+              style={styles.list}
+              data={listParticipantes}
+              keyExtractor={sprint => sprint.id_sprint}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item: sprint}) => (
+                <View style={styles.listContainer}>
+                  <View>
+                    <Text style={styles.title}>
+                      <Text style={styles.bold}>Nome:</Text> {sprint.nm_usuario}
+                    </Text>
+                    <Text style={styles.title}>
+                      <Text style={styles.bold}>Email:</Text> {sprint.ds_email}
+                    </Text>
+                  </View>
 
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Nome do integrante*</Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToSprintList()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Ver</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Nome do integrante*</Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToSprintList()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Ver</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Nome do integrante*</Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToSprintList()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Ver</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Nome do integrante*</Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToSprintList()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Ver</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => NavigateToSprintList(sprint.id_usuario)}
+                      style={styles.buttonIn}>
+                      <Text style={styles.textButton}>Ver</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            />
           </View>
 
           <View style={styles.buttonSpace}>
@@ -180,13 +200,18 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 22,
+    fontSize: 14,
     color: '#fff',
-    fontWeight: 'bold',
     textAlignVertical: 'center',
     width: 300,
-    height: 80,
+    height: 40,
     paddingLeft: 20,
+  },
+
+  bold: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlignVertical: 'center',
   },
 
   buttonIn: {

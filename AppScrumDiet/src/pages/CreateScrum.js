@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -7,22 +7,49 @@ import {
   ImageBackground,
   TouchableOpacity,
   TextInput,
+  AsyncStorage,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Amarelo from '../assets/Amarelo.png';
 
-// import api from '../services/api';
+import api from '../services/api';
 
 export default function CreateScrum() {
+  const [goal, setGoal] = useState('');
+  const [dt_inicio, setDt_inicio] = useState('');
+  const [dt_fim, setDt_fim] = useState('');
+  const [hora_inicio, setHora_inicio] = useState('');
+  const [hora_fim, setHora_fim] = useState('');
+
   const navigation = useNavigation();
 
   function navigateToScrumList() {
     navigation.navigate('ScrumList');
   }
 
-  function createGrupoScrum() {
-    navigation.navigate('Home');
+  async function createGrupoScrum() {
+    const token = await AsyncStorage.getItem('token', token);
+    const response = await api.put(
+      '/sprint',
+      {
+        goal,
+        dt_inicio,
+        dt_fim,
+        hora_inicio,
+        hora_fim,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    const {usuario} = response.data;
+    console.log(response.data);
+
+    navigation.navigate('Home', {usuario});
   }
 
   return (
@@ -31,56 +58,70 @@ export default function CreateScrum() {
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.viewForm}>
-            <Text style={styles.text}>Título:</Text>
+            <Text style={styles.text}>Objetivo:</Text>
             <TextInput
               style={styles.input}
-              placeholder="Nome do grupo"
+              placeholder="Objetivo do grupo"
               placeholderTextColor="#8D8E8E"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={nome}
-              //onChangeText={setNome}
+              value={goal}
+              onChangeText={setGoal}
             />
           </View>
 
           <View style={styles.viewForm}>
-            <Text style={styles.text}>Descrição:</Text>
+            <Text style={styles.text}>Data de início:</Text>
             <TextInput
               style={styles.input}
-              placeholder="Descrição do grupo"
+              placeholder="example: aaaa-mm-dd"
               placeholderTextColor="#8D8E8E"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={nome}
-              //onChangeText={setNome}
+              value={dt_inicio}
+              onChangeText={setDt_inicio}
             />
           </View>
 
           <View style={styles.viewForm}>
-            <Text style={styles.text}>Período Sprint:</Text>
+            <Text style={styles.text}>Data final:</Text>
             <TextInput
               style={styles.input}
-              placeholder="Período da Sprint"
+              placeholder="example: aaaa-mm-dd"
               placeholderTextColor="#8D8E8E"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={nome}
-              //onChangeText={setNome}
+              value={dt_fim}
+              onChangeText={setDt_fim}
             />
           </View>
 
           <View style={styles.viewForm}>
-            <Text style={styles.text}>Quantidade integrante:</Text>
+            <Text style={styles.text}>Hora de início:</Text>
             <TextInput
               style={styles.input}
-              placeholder="Nome do grupo"
+              placeholder="example: hh:mm:ss"
               placeholderTextColor="#8D8E8E"
               autoCapitalize="words"
               autoCorrect={false}
-              //value={nome}
-              //onChangeText={setNome}
+              value={hora_inicio}
+              onChangeText={setHora_inicio}
             />
           </View>
+
+          <View style={styles.viewForm}>
+            <Text style={styles.text}>Hora final:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="example: hh:mm:ss"
+              placeholderTextColor="#8D8E8E"
+              autoCapitalize="words"
+              autoCorrect={false}
+              value={hora_fim}
+              onChangeText={setHora_fim}
+            />
+          </View>
+
           <View style={styles.buttonSpace}>
             <TouchableOpacity
               onPress={() => navigateToScrumList()}

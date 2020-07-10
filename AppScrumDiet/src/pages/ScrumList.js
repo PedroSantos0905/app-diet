@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,14 +6,19 @@ import {
   StatusBar,
   ImageBackground,
   TouchableOpacity,
+  AsyncStorage,
+  FlatList,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import Amarelo from '../assets/Amarelo.png';
 
-// import api from '../services/api';
+import api from '../services/api';
 
 export default function ScrumList() {
+  const [sprints, setSprints] = useState([]);
+  const [id_sprint, setId_sprint] = useState('');
+
   const navigation = useNavigation();
 
   function navigateToHome() {
@@ -24,9 +29,44 @@ export default function ScrumList() {
     navigation.navigate('CreateScrum');
   }
 
-  function NavigateToGroupScrum() {
-    navigation.navigate('GroupScrum');
+  async function NavigateToGroupScrum(id) {
+    setId_sprint(id);
+    const token = await AsyncStorage.getItem('token', token);
+    const response = await api.post(
+      '/sprint/listarParticipantes',
+      {
+        id_sprint: id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    await AsyncStorage.setItem('id_sprint', id.toString());
+
+    //console.log(response.data);
+
+    navigation.navigate('GroupScrum', {id});
   }
+
+  useEffect(() => {
+    async function loadSprint() {
+      const token = await AsyncStorage.getItem('token', token);
+      const response = await api.get('/sprint/listar', {
+        params: {},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setSprints(response.data.sprint);
+      //console.log(response.data);
+    }
+
+    loadSprint();
+  }, []);
 
   return (
     <>
@@ -34,90 +74,42 @@ export default function ScrumList() {
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.containerMaster}>
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Título do grupo</Text>
-                <Text style={styles.description}>
-                  Descrição breve Descrição breve Descrição breve Descrição
-                  breve
-                </Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToGroupScrum()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Entrar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Título do grupo</Text>
-                <Text style={styles.description}>
-                  Descrição breve Descrição breve Descrição breve Descrição
-                  breve
-                </Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToGroupScrum()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Entrar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Título do grupo</Text>
-                <Text style={styles.description}>
-                  Descrição breve Descrição breve Descrição breve Descrição
-                  breve
-                </Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToGroupScrum()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Entrar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Título do grupo</Text>
-                <Text style={styles.description}>
-                  Descrição breve Descrição breve Descrição breve Descrição
-                  breve
-                </Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToGroupScrum()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Entrar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Título do grupo</Text>
-                <Text style={styles.description}>
-                  Descrição breve Descrição breve Descrição breve Descrição
-                  breve
-                </Text>
-              </View>
-              <View>
-                <TouchableOpacity
-                  onPress={() => NavigateToGroupScrum()}
-                  style={styles.buttonIn}>
-                  <Text style={styles.textButton}>Entrar</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <FlatList
+              style={styles.list}
+              data={sprints}
+              keyExtractor={sprint => sprint.id_sprint}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item: sprint}) => (
+                <View style={styles.listContainer}>
+                  <View>
+                    <Text style={styles.title}>{sprint.goal}</Text>
+                    <View style={styles.rowLine}>
+                      <Text style={styles.description}>
+                        Início: {sprint.dt_inicio}
+                      </Text>
+                      <Text style={styles.description}>
+                        Fim: {sprint.dt_fim}
+                      </Text>
+                    </View>
+                    <View style={styles.rowLine}>
+                      <Text style={styles.description}>
+                        Início: {sprint.hora_inicio}
+                      </Text>
+                      <Text style={styles.description}>
+                        Fim: {sprint.hora_fim}
+                      </Text>
+                    </View>
+                  </View>
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => NavigateToGroupScrum(sprint.id_sprint)}
+                      style={styles.buttonIn}>
+                      <Text style={styles.textButton}>Entrar</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            />
           </View>
 
           <View style={styles.buttonSpace}>
@@ -191,7 +183,7 @@ const styles = StyleSheet.create({
   listContainer: {
     flexDirection: 'row',
     width: 360,
-    height: 80,
+    height: 140,
     borderWidth: 2,
     borderRadius: 10,
     borderColor: '#41aac6',
@@ -205,24 +197,29 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlignVertical: 'center',
     width: 300,
-    height: 30,
+    height: 40,
     paddingLeft: 20,
+    paddingTop: 5,
+  },
+
+  rowLine: {
+    flexDirection: 'row',
   },
 
   description: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#fff',
     textAlignVertical: 'center',
-    width: 300,
+    width: 150,
     height: 50,
-    paddingLeft: 20,
+    paddingHorizontal: 10,
   },
 
   buttonIn: {
     justifyContent: 'center',
     alignItems: 'center',
     width: 60,
-    height: 80,
+    height: 140,
   },
 
   textButton: {

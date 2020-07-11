@@ -45,9 +45,9 @@ export default function User() {
       <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
-          <Image source={Logo} style={styles.image} />
-
-          <Text style={styles.title}>Scrum Diet</Text>
+          <View style={styles.imageContainer}>
+            <Image source={Logo} style={styles.image} />
+          </View>
 
           <View style={styles.viewForm}>
             <Text style={styles.text}>E-mail:</Text>
@@ -113,25 +113,27 @@ const styles = StyleSheet.create({
   planoFundo: {
     flex: 1,
     resizeMode: 'cover',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    borderWidth: 1,
+  },
+
+  imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 40,
+    marginBottom: 80,
   },
 
   image: {
-    height: 120,
-    width: 140,
+    height: 200,
+    width: 200,
     resizeMode: 'cover',
-  },
-
-  title: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#000',
-    marginBottom: 30,
   },
 
   viewForm: {
     flexDirection: 'row',
+    width: '100%',
   },
 
   text: {
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 360,
+    width: '80%',
     height: 50,
     borderWidth: 2,
     borderRadius: 25,

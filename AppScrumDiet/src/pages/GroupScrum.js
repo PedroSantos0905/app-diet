@@ -20,8 +20,11 @@ export default function GroupScrum() {
 
   const [listParticipantes, setListParticipantes] = useState([]);
   const [id_sprint, setId_sprint] = useState('');
-  //const [id_usuario, setId_usuario] = useState('');
   const [id_usuarioParticipante, setId_usuarioParticipante] = useState('');
+
+  function navigateToAddUser() {
+    navigation.navigate('AddUser');
+  }
 
   function navigateToScrumList() {
     navigation.navigate('ScrumList');
@@ -91,7 +94,17 @@ export default function GroupScrum() {
       <StatusBar barStyle="light-content" backgroundColor="#000" />
       <View style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
+          <View style={styles.containerTop}>
+            <Text style={styles.textIdSprint}>
+              Numeração do grupo: {id_sprint}
+            </Text>
+          </View>
           <View style={styles.containerMaster}>
+            <TouchableOpacity
+              onPress={() => navigateToAddUser()}
+              style={styles.buttomTop}>
+              <Text style={styles.textTop}>Adicionar amigo ao grupo!</Text>
+            </TouchableOpacity>
             <FlatList
               style={styles.list}
               data={listParticipantes}
@@ -147,8 +160,22 @@ const styles = StyleSheet.create({
   planoFundo: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+
+  containerTop: {
+    marginBottom: 20,
+    borderWidth: 2,
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
+    width: '100%',
+  },
+
+  textIdSprint: {
+    fontSize: 14,
+    color: '#FFF',
+    paddingLeft: 20,
   },
 
   buttonSpace: {
@@ -232,5 +259,23 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     width: 40,
     height: 40,
+  },
+
+  buttomTop: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 360,
+    height: 50,
+    borderWidth: 2,
+    borderRadius: 25,
+    borderColor: '#41aac6',
+    backgroundColor: '#5C65CF',
+    paddingHorizontal: 10,
+    marginBottom: 20,
+  },
+
+  textTop: {
+    fontSize: 16,
+    color: '#FFF',
   },
 });

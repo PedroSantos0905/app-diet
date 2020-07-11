@@ -9,6 +9,8 @@ import {
   Image,
   AsyncStorage,
   FlatList,
+  SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -82,7 +84,7 @@ export default function Home() {
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#000" />
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.dataContainer}>
             <FlatList
@@ -123,30 +125,32 @@ export default function Home() {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.containerBottom}>
-            <TouchableOpacity
-              onPress={() => navigateToScrumList()}
-              style={styles.buttonNavigation}>
-              <Image source={Group} style={styles.iconImage} />
-              <Text style={styles.textNavigation}>Scrum</Text>
-            </TouchableOpacity>
+          <View style={styles.containerMenu}>
+            <View style={styles.containerBottom}>
+              <TouchableOpacity
+                onPress={() => navigateToScrumList()}
+                style={styles.buttonNavigation}>
+                <Image source={Group} style={styles.iconImage} />
+                <Text style={styles.textNavigation}>Scrum</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigateToRefeicao()}
-              style={styles.buttonNavigation}>
-              <Image source={Food} style={styles.iconImage} />
-              <Text style={styles.textNavigation}>Refeições</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigateToRefeicao()}
+                style={styles.buttonNavigation}>
+                <Image source={Food} style={styles.iconImage} />
+                <Text style={styles.textNavigation}>Refeições</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => navigateToPerfil()}
-              style={styles.buttonNavigation}>
-              <Image source={Perfil} style={styles.iconImage} />
-              <Text style={styles.textNavigation}>Perfil</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigateToPerfil()}
+                style={styles.buttonNavigation}>
+                <Image source={Perfil} style={styles.iconImage} />
+                <Text style={styles.textNavigation}>Perfil</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ImageBackground>
-      </View>
+      </SafeAreaView>
     </>
   );
 }
@@ -183,7 +187,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    width: 140,
+    width: '40%',
     marginTop: 5,
   },
 
@@ -195,8 +199,8 @@ const styles = StyleSheet.create({
   },
 
   contadorContainer: {
-    width: 360,
-    height: 200,
+    width: '90%',
+    height: '25%',
     marginTop: 20,
     borderWidth: 2,
     borderRadius: 50,
@@ -211,8 +215,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 20,
-    marginTop: 10,
+    marginBottom: 10,
+    marginTop: 5,
   },
 
   valorCalorias: {
@@ -232,8 +236,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 40,
-    width: 360,
-    height: 120,
+    width: '90%',
+    height: '16%',
     marginTop: 40,
     marginBottom: 40,
     borderWidth: 2,
@@ -277,10 +281,13 @@ const styles = StyleSheet.create({
     resizeMode: 'center',
   },
 
+  containerMenu: {
+    justifyContent: 'flex-end',
+  },
+
   containerBottom: {
-    width: 360,
-    height: 100,
-    marginTop: 140,
+    width: '90%',
+    height: '38%',
     borderWidth: 2,
     borderRadius: 25,
     borderColor: '#41aac6',

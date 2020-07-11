@@ -156,7 +156,7 @@ export default function SprintManage() {
               </View>
 
               <View style={styles.viewForm}>
-                <Text style={styles.title}>Número da Sprint:</Text>
+                <Text style={styles.title}>Numeração da Sprint:</Text>
                 <TextInput
                   style={styles.input}
                   placeholder="Númeração da Sprint"

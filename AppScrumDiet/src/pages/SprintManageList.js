@@ -71,7 +71,9 @@ export default function SprintManageList() {
                 <View style={styles.viewContainerRefeicao}>
                   <View style={styles.rowContainer}>
                     <Text style={styles.semana}>{refeicao.ds_dia_semana}</Text>
-                    <Text style={styles.sprintId}>{refeicao.id_sprint}</Text>
+                    <Text style={styles.sprintId}>
+                      numeração: {refeicao.id_sprint}
+                    </Text>
                   </View>
                   <Text style={styles.titleRefeicao}>
                     {refeicao.nm_refeicao}
@@ -223,7 +225,7 @@ const styles = StyleSheet.create({
   },
 
   sprintId: {
-    fontSize: 24,
+    fontSize: 14,
     color: '#FFF',
     fontWeight: 'bold',
     textAlign: 'center',

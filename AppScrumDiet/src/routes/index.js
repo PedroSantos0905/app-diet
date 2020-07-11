@@ -19,15 +19,7 @@ import GroupScrum from '../pages/GroupScrum'; // Group de Scrum
 import SprintList from '../pages/SprintList'; // Lista as Sprints (refeições e dias da semana)
 import SprintManageList from '../pages/SprintManageList'; // Gerencia as Sprints por dia
 import SprintManage from '../pages/SprintManage'; // Gerencia/Cria os alimentos das sprint
-
-/**
- * ScrumList - OK
- * CreateScrum - OK
- * GroupScrum - OK
- * SprintList - No
- * SprintManageList - OK
- * SprintManage - OK
- */
+import AddUser from '../pages/AddUser'; // Adiciona amigo ao grupo
 
 const Auth = createStackNavigator();
 
@@ -50,6 +42,7 @@ const AuthRoutes = () => (
     <Auth.Screen name="SprintList" component={SprintList} />
     <Auth.Screen name="SprintManageList" component={SprintManageList} />
     <Auth.Screen name="SprintManage" component={SprintManage} />
+    <Auth.Screen name="AddUser" component={AddUser} />
   </Auth.Navigator>
 );
 

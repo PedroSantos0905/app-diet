@@ -185,7 +185,7 @@ export default function Alimento() {
             <TouchableOpacity
               onPress={() => navigateToHome()}
               style={styles.buttonNavigation}>
-              <Text style={styles.textNavigation}>Home</Text>
+              <Text style={styles.textNavigation}>Cancelar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity

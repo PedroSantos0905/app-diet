@@ -40,7 +40,6 @@ export default function Init() {
         <ImageBackground source={Amarelo} style={styles.planoFundo}>
           <View style={styles.imageContainer}>
             <Image source={Logo} style={styles.image} />
-            <Text style={styles.title}>Scrum Diet</Text>
           </View>
 
           <View style={styles.buttonSpace}>
@@ -70,25 +69,21 @@ const styles = StyleSheet.create({
   planoFundo: {
     flex: 1,
     resizeMode: 'cover',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    borderWidth: 1,
   },
 
   imageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 40,
   },
 
   image: {
-    height: 300,
-    width: 360,
+    height: 200,
+    width: 200,
     resizeMode: 'cover',
-    marginRight: 30,
-  },
-
-  title: {
-    fontSize: 48,
-    fontWeight: 'bold',
   },
 
   buttonSpace: {
@@ -97,13 +92,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     height: 100,
     width: '100%',
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
+    marginBottom: 40,
   },
 
   buttonNavigation: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 180,
+    width: '46%',
     height: 50,
     borderWidth: 2,
     borderRadius: 25,
@@ -119,7 +115,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
     textAlignVertical: 'center',
-    width: 360,
+    width: '100%',
     height: 40,
   },
 });

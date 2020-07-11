@@ -73,10 +73,11 @@ export default function SprintList() {
               renderItem={({item: sprint}) => (
                 <View style={styles.listContainer}>
                   <View>
-                    <Text style={styles.title}>{sprint.nm_refeicao}</Text>
                     <Text style={styles.descriptionSemana}>
                       {sprint.ds_dia_semana}
                     </Text>
+                    <Text style={styles.title}>{sprint.nm_refeicao}</Text>
+
                     <Text style={styles.descriptionAlimento}>
                       Alimentos: {sprint.id_alimentos}
                     </Text>
@@ -99,36 +100,6 @@ export default function SprintList() {
                 </View>
               )}
             />
-
-            {/* <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Dia da semana*</Text>
-                <Text style={styles.description}>
-                  Refeição 01, Refei. 02, Refeição 03, Refeição 04, Refeição 05,
-                  Refeição 06, Refeição 07
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Dia da semana*</Text>
-                <Text style={styles.description}>
-                  Refeição 01, Refei. 02, Refeição 03, Refeição 04, Refeição 05,
-                  Refeição 06, Refeição 07
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.listContainer}>
-              <View>
-                <Text style={styles.title}>Dia da semana*</Text>
-                <Text style={styles.description}>
-                  Refeição 01, Refei. 02, Refeição 03, Refeição 04, Refeição 05,
-                  Refeição 06, Refeição 07
-                </Text>
-              </View>
-            </View> */}
           </View>
 
           <View style={styles.buttonSpace}>

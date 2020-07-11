@@ -189,6 +189,7 @@ const styles = StyleSheet.create({
     borderColor: '#41aac6',
     backgroundColor: '#5C65CF',
     marginBottom: 20,
+    //marginTop: 20,
   },
 
   title: {
